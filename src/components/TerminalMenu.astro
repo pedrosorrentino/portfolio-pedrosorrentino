@@ -1,0 +1,29 @@
+---
+import { MAIN_MENU } from '@/utils/config';
+import DownloadResume from './DownloadResume.astro';
+---
+
+<div class='flex items-end justify-between py-5'>
+  <div>
+    <p class='text-green-400 dark:text-rose-400'>$</p>
+    <p class='text-green-400 dark:text-rose-400'>
+      $ <span class='text-blue-400 dark:text-lime-300'>Explore my work:</span>
+    </p>
+
+    {
+      MAIN_MENU.map((menuItem) => (
+        <p class='text-slate-300 dark:text-gray-100 ml-4'>
+          <a
+            title={menuItem.title}
+            href={menuItem.url}
+            class='text-blue-400 dark:text-lime-300 hover:underline'
+          >
+            {menuItem.title}
+          </a>
+          - {menuItem.desc}
+        </p>
+      ))
+    }
+  </div>
+  <DownloadResume />
+</div>

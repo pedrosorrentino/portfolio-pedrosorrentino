@@ -1,0 +1,33 @@
+---
+interface Props {
+  article: {
+    title: string;
+    createdDate: string;
+    url: string;
+  };
+}
+const { article } = Astro.props;
+---
+
+<div class='mb-4'>
+  <p class='text-blue-400 dark:text-lime-300'>
+    ~/docs/{article.title.toLowerCase().replace(/ /g, '_')}:
+  </p>
+
+  <p class='text-slate-300 dark:text-gray-100 ml-4'>
+    <span class='text-blue-400 dark:text-lime-300'>Created:</span>
+    {article.createdDate}
+  </p>
+
+  <p class='text-slate-300 dark:text-gray-100 ml-4'>
+    <span class='text-blue-400 dark:text-lime-300'>URL:</span>{' '}
+    <a
+      href={article.url}
+      class='text-blue-400 dark:text-lime-300 hover:underline'
+      target='_blank'
+      rel='noopener noreferrer'
+    >
+      {article.url}
+    </a>
+  </p>
+</div>

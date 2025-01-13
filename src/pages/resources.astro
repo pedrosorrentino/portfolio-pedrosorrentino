@@ -1,0 +1,41 @@
+---
+import TerminalMenu from '@/components/TerminalMenu.astro';
+import Layout from '../layouts/Layout.astro';
+import TerminalHeader from '@/components/TerminalHeader.astro';
+import { RESOURCES } from '@/utils/config';
+---
+
+<Layout>
+  <div
+    class='bg-slate-700 dark:bg-black text-white dark:text-gray-100 p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-lg'
+  >
+    <h1 class='hidden'>Resources I Use</h1>
+
+    <TerminalHeader title='Tools & Resources I Love' />
+
+    <div class='mt-4 space-y-8'>
+      <p class='text-green-400 dark:text-rose-400'>$ cat resources.txt</p>
+
+      {
+        RESOURCES.map((resource) => (
+          <div class='mb-6'>
+            <h2 class='hidden'>{resource.category}</h2>
+            <p class='text-blue-400 dark:text-lime-300'>
+              ~/resources/{resource.category.toLowerCase()}:
+            </p>
+            {resource.items.map((item) => (
+              <div class='ml-4'>
+                <p class='text-slate-300'>
+                  <span class='text-blue-400'>✔</span> {item.name}:{' '}
+                  <span class='text-slate-300'>{item.description}</span>
+                </p>
+              </div>
+            ))}
+          </div>
+        ))
+      }
+
+      <TerminalMenu />
+    </div>
+  </div>
+</Layout>
