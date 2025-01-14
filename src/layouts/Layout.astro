@@ -47,7 +47,7 @@ const canonicalUrl = Astro.url.href;
     <ClientRouter />
   </head>
   <body class='bg-white dark:bg-gray-900'>
-    <main class='max-w-4xl mx-auto'>
+    <main class='max-w-4xl sm:mx-auto mx-5'>
       <slot />
       <TotalTime client:only='preact' />
     </main>
