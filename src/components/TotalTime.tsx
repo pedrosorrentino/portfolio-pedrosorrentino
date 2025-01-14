@@ -1,7 +1,17 @@
-import { useEffect } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 
 export default function TotalTime() {
+  const [loadTime, setLoadTime] = useState<string>('Calculating...');
+
   useEffect(() => {
+    const handleLoadTime = (loadTime: number) => {
+      if (loadTime < 100) {
+        setLoadTime('Instant load 🚀');
+      } else {
+        setLoadTime(`${loadTime.toFixed(2)} ms`);
+      }
+    };
+
     if (window.PerformanceObserver) {
       const observer = new PerformanceObserver((list) => {
         const entries = list.getEntriesByType('navigation');
@@ -14,7 +24,7 @@ export default function TotalTime() {
             const loadTime =
               navigationEntry.domContentLoadedEventEnd -
               navigationEntry.startTime;
-            updateLoadTime(loadTime);
+            handleLoadTime(loadTime);
           }
         }
       });
@@ -26,21 +36,10 @@ export default function TotalTime() {
       const startTime = Date.now();
       window.addEventListener('load', () => {
         const loadTime = Date.now() - startTime;
-        updateLoadTime(loadTime);
+        handleLoadTime(loadTime);
       });
     }
   }, []);
-
-  const updateLoadTime = (loadTime: number) => {
-    const loadTimeElement = document.getElementById('load-time');
-    if (loadTimeElement) {
-      if (loadTime < 100) {
-        loadTimeElement.textContent = 'Instant load 🚀';
-      } else {
-        loadTimeElement.textContent = `${loadTime.toFixed(2)} ms`;
-      }
-    }
-  };
 
   return (
     <div className='load-time-container text-xs p-4 text-center font-mono'>
@@ -49,8 +48,9 @@ export default function TotalTime() {
         <span
           id='load-time'
           className='font-bold text-blue-500 dark:text-purple-400'
+          aria-live='polite'
         >
-          Calculating...
+          {loadTime}
         </span>
       </p>
     </div>

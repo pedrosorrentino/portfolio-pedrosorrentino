@@ -3,7 +3,6 @@ import { useState, useEffect } from 'preact/hooks';
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
 
-  // Cargar el tema inicial
   useEffect(() => {
     const theme =
       localStorage.getItem('theme') ||
@@ -14,7 +13,6 @@ export default function ThemeToggle() {
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, []);
 
-  // Cambiar el tema
   const toggleTheme = () => {
     const newIsDark = !isDark;
     setIsDark(newIsDark);
