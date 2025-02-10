@@ -40,6 +40,21 @@ export const MAIN_MENU = [
 
 export const PROJECTS: Project[] = [
   {
+    title: 'Snapcraft',
+    description:
+      'A web application for editing images and videos, featuring customizable watermarks, text, stickers, and more.',
+    technologies: [
+      'Astro',
+      'React',
+      'Konva.js',
+      'Clerk',
+      'shadcn/ui',
+      'ffmpeg.wasm',
+    ],
+    image: '/ogImage.webp',
+    url: 'https://snapcraft.site/',
+  },
+  {
     title: 'Roast My Website',
     description:
       'A platform to get feedback on your website’s design and performance.',
@@ -55,13 +70,7 @@ export const PROJECTS: Project[] = [
     image: '/ogImage.webp',
     url: 'https://expireddomain.site',
   },
-  {
-    title: 'Guachinches.info',
-    description: 'A client project showcasing local restaurants and events.',
-    technologies: ['Astro', 'Tailwind CSS', 'Google Sheets'],
-    image: '/ogImage.webp',
-    url: 'https://guachinches.info',
-  },
+
   {
     title: 'Fly Fast',
     description: 'A flight search and booking platform with real-time data.',
