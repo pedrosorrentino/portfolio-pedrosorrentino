@@ -1,9 +1,7 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getI18n } from '@/utils/config';
 
 const i18n = getI18n(Astro.currentLocale);
-const currentLocale = Astro.currentLocale || 'en';
 ---
 
 <button class='download-button mt-10 sm:mt-0'>
