@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "title": "Pedro Sorrentino | Desarrollador JavaScript y Experto en Frameworks Web Modernos",
+    "description": "Soy un desarrollador JavaScript especializado en Next.js y Astro. Construyo aplicaciones web rápidas y escalables, y optimizo el rendimiento para obtener resultados impactantes. ¡Trabajemos juntos y hagamos realidad tu visión con tecnología de vanguardia! 🚀",
+    "text1": "Explora mi trabajo",
+    "text2": "Visita mi perfil de GitHub",
+    "downloadcv": "Descargar CV",
+    "urlcv": "/cv_es.pdf"
+  },
+  "menu": [
+    {
+      "title": "~/acerca-de",
+      "url": "/",
+      "description": "Acerca de mí"
+    },
+    {
+      "title": "~/proyectos",
+      "url": "/proyectos",
+      "description": "Proyectos en los que he trabajado"
+    },
+
+    {
+      "title": "~/recursos",
+      "url": "/recursos",
+      "description": "Recursos que he utilizado"
+    },
+    {
+      "title": "~/blog",
+      "url": "/blog",
+      "description": "Mis últimas publicaciones de blog"
+    },
+    {
+      "title": "~/contactar",
+      "url": "/contactar",
+      "description": "Contáctame"
+    }
+  ]
+}

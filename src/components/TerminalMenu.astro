@@ -1,26 +1,31 @@
 ---
-import { MAIN_MENU } from '@/utils/config';
+// src/components/TerminalMenu.astro
+import { getI18n } from '@/utils/config';
 import DownloadResume from './DownloadResume.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const i18n = getI18n(Astro.currentLocale);
+const currentLocale = Astro.currentLocale || 'en';
 ---
 
 <div class='flex flex-col sm:flex-row sm:items-end justify-between py-5'>
   <div>
     <p class='text-green-400 dark:text-rose-400'>$</p>
     <p class='text-green-400 dark:text-rose-400'>
-      $ <span class='text-blue-400 dark:text-lime-300'>Explore my work:</span>
+      $ <span class='text-blue-400 dark:text-lime-300'>{i18n.meta.text1}:</span>
     </p>
 
     {
-      MAIN_MENU.map((menuItem) => (
+      i18n.menu.map((menuItem) => (
         <p class='text-slate-300 dark:text-gray-100 ml-4'>
           <a
-            title={menuItem.title}
-            href={menuItem.url}
+            title={menuItem.description}
+            href={getRelativeLocaleUrl(currentLocale, menuItem.url)}
             class='text-blue-400 dark:text-lime-300 hover:underline'
           >
             {menuItem.title}
           </a>
-          - {menuItem.desc}
+          - {menuItem.description}
         </p>
       ))
     }
@@ -32,7 +37,7 @@ import DownloadResume from './DownloadResume.astro';
       >
         ~/gitHub
       </a>
-      - Visit my GitHub profile
+      - {i18n.meta.text2}
     </p>
   </div>
   <DownloadResume />

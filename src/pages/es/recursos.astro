@@ -1,7 +1,7 @@
 ---
 import TerminalMenu from '@/components/TerminalMenu.astro';
-import Layout from '../layouts/Layout.astro';
 import TerminalHeader from '@/components/TerminalHeader.astro';
+import Layout from '@/layouts/Layout.astro';
 
 interface ResourceItem {
   name: string;
@@ -17,30 +17,30 @@ interface ResourceCategory {
 
 export const RESOURCES: ResourceCategory[] = [
   {
-    category: 'Development Methodologies & Practices',
+    category: 'Metodologías y Prácticas de Desarrollo',
     items: [
       {
-        name: 'Agile Development',
-        description: 'Using Scrum methodologies',
-        why: 'for iterative and flexible project management.',
+        name: 'Desarrollo Ágil',
+        description: 'Utilizando metodologías Scrum',
+        why: 'para una gestión de proyectos iterativa y flexible.',
       },
       {
-        name: 'Web Performance Optimization',
+        name: 'Optimización del Rendimiento Web',
         description:
-          'Techniques like lazy loading, code splitting, and image optimization.',
-        why: 'to ensure fast loading times and a smooth user experience.',
+          'Técnicas como carga diferida, división de código y optimización de imágenes.',
+        why: 'para garantizar tiempos de carga rápidos y una experiencia de usuario fluida.',
       },
       {
-        name: 'Code Reviews',
+        name: 'Revisiones de Código',
         description:
-          'Collaborative code review process using GitHub pull requests.',
-        why: 'to improve code quality and share knowledge.',
+          'Proceso colaborativo de revisión de código utilizando pull requests de GitHub.',
+        why: 'para mejorar la calidad del código y compartir conocimientos.',
       },
       {
-        name: 'Version Control',
+        name: 'Control de Versiones',
         description: 'Git',
         url: 'https://git-scm.com/',
-        why: 'for tracking changes and managing collaboration.',
+        why: 'para seguimiento de cambios y gestión de la colaboración.',
       },
     ],
   },
@@ -48,16 +48,17 @@ export const RESOURCES: ResourceCategory[] = [
     category: 'Hardware',
     items: [
       {
-        name: 'Laptop',
+        name: 'Portátil',
         description: 'MSI M16 Creator (Intel i7, 64GB RAM, 1TB SSD)',
       },
       {
         name: 'Monitor',
-        description: 'Various hotel TVs (I work remotely from anywhere!)',
+        description:
+          '¡Varios televisores de hotel (trabajo remotamente desde cualquier lugar!)',
       },
       {
-        name: 'Mouse',
-        description: 'A trusty Chinese mouse with 2 extra buttons',
+        name: 'Ratón',
+        description: 'Un confiable ratón chino con 2 botones adicionales',
       },
     ],
   },
@@ -65,79 +66,79 @@ export const RESOURCES: ResourceCategory[] = [
     category: 'Software',
     items: [
       {
-        name: 'Code Editor',
+        name: 'Editor de Código',
         description: 'Visual Studio Code',
         url: 'https://code.visualstudio.com/',
-        why: 'with extensions like Prettier, ESLint, and GitLens for enhanced productivity.',
+        why: 'con extensiones como Prettier, ESLint y GitLens para mejorar la productividad.',
       },
       {
         name: 'Terminal',
-        description: 'Integrated terminal in Ubuntu',
+        description: 'Terminal integrada en Ubuntu',
       },
       {
-        name: 'Browser',
+        name: 'Navegador',
         description: 'Brave',
         url: 'https://brave.com/',
-        why: 'for its privacy features and built-in ad blocker.',
+        why: 'por sus funciones de privacidad y bloqueador de anuncios integrado.',
       },
       {
-        name: 'Design Tool',
+        name: 'Herramienta de Diseño',
         description: 'Photoshop',
         url: 'https://www.adobe.com/products/photoshop.html',
       },
     ],
   },
   {
-    category: 'Apps & Tools',
+    category: 'Aplicaciones y Herramientas',
     items: [
       {
-        name: 'Project Management',
+        name: 'Gestión de Proyectos',
         description: 'Google Sheets',
         url: 'https://www.google.com/sheets/about/',
-        why: 'for simple and effective task tracking and collaboration.',
+        why: 'para un seguimiento de tareas y colaboración simple y efectiva.',
       },
       {
-        name: 'Communication',
-        description: 'Telegram & Slack',
+        name: 'Comunicación',
+        description: 'Telegram y Slack',
         url: 'https://slack.com/',
       },
       {
-        name: 'Version Control',
-        description: 'Git & GitHub',
+        name: 'Control de Versiones',
+        description: 'Git y GitHub',
         url: 'https://github.com/',
-        why: 'for version control and collaboration.',
+        why: 'para control de versiones y colaboración.',
       },
       {
-        name: 'API Testing',
+        name: 'Pruebas de API',
         description: 'Thunder Client',
         url: 'https://www.thunderclient.com/',
-        why: 'for quick API testing and debugging.',
+        why: 'para pruebas y depuración rápidas de API.',
       },
     ],
   },
   {
-    category: 'Learning Resources',
+    category: 'Recursos de Aprendizaje',
     items: [
       {
-        name: 'Online Courses',
+        name: 'Cursos en Línea',
         description:
-          'Advanced React Development on Udemy, Full-Stack JavaScript Bootcamp on Devtalles',
+          'Desarrollo Avanzado de React en Udemy, Bootcamp de JavaScript Full-Stack en Devtalles',
       },
       {
-        name: 'Books',
-        description: '"Clean Code" by Robert C. Martin',
+        name: 'Libros',
+        description: '"Clean Code" de Robert C. Martin',
         url: 'https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882',
-        why: 'a foundational book on writing maintainable code.',
+        why: 'un libro fundamental sobre cómo escribir código mantenible.',
       },
       {
-        name: 'Books',
-        description: '"JavaScript: The Definitive Guide" by O\'Reilly',
+        name: 'Libros',
+        description: '"JavaScript: The Definitive Guide" de O\'Reilly',
         url: 'https://www.oreilly.com/library/view/javascript-the-definitive/9781449393854/',
       },
       {
-        name: 'Special Thanks',
+        name: 'Agradecimientos Especiales',
         description:
-          'To my great teachers Fernando Herrera and Miguel Ángel Durán',
+          'A mis grandes maestros Fernando Herrera y Miguel Ángel Durán',
       },
     ],
   },
@@ -148,19 +149,19 @@ export const RESOURCES: ResourceCategory[] = [
   <div
     class='bg-slate-700 dark:bg-black text-white dark:text-gray-100 p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-lg'
   >
-    <h1 class='hidden'>Resources I Use</h1>
+    <h1 class='hidden'>Recursos que utilizo</h1>
 
-    <TerminalHeader title='Tools & Resources I Love' />
+    <TerminalHeader title='Herramientas y recursos que me encantan' />
 
     <div class='mt-4 space-y-8'>
-      <p class='text-green-400 dark:text-rose-400'>$ cat resources.txt</p>
+      <p class='text-green-400 dark:text-rose-400'>$ cat recursos.txt</p>
 
       {
         RESOURCES.map((resource) => (
           <div class='mb-6'>
-            <h2 class='hidden'>{resource.category}</h2>
+            <h2 class='hidden'>{resource.category}</h2>{' '}
             <p class='text-blue-400 dark:text-lime-300'>
-              ~/resources/{resource.category.toLowerCase().replace(/ /g, '_')}:
+              ~/recursos/{resource.category.toLowerCase().replace(/ /g, '_')}:{' '}
             </p>
             {resource.items.map((item) => (
               <div class='ml-4'>
@@ -178,7 +179,7 @@ export const RESOURCES: ResourceCategory[] = [
                   ) : (
                     item.name
                   )}
-                  {item.description ? `: ${item.description}` : ''}
+                  {item.description ? `: ${item.description}` : ''}{' '}
                   {item.why ? (
                     <span class='text-gray-400 dark:text-gray-500'>
                       ({item.why})

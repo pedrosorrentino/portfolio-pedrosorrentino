@@ -1,0 +1,56 @@
+---
+import TerminalMenu from '@/components/TerminalMenu.astro';
+import TerminalHeader from '@/components/TerminalHeader.astro';
+import CardArticleBlog from '@/components/CardArticleBlog.astro';
+import Layout from '@/layouts/Layout.astro';
+interface Article {
+  title: string;
+  createdDate: string;
+  url: string;
+}
+const ARTICLES: Article[] = [];
+---
+
+<Layout>
+  <div
+    class='bg-slate-700 dark:bg-black text-white dark:text-gray-100 p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-lg'
+  >
+    <h1 class='sr-only'>Últimas publicaciones del blog</h1>
+
+    <TerminalHeader title='Últimas publicaciones del blog' />
+
+    <div class='mt-4 space-y-8'>
+      <p class='text-green-400 dark:text-rose-400'>$ cat blog.txt</p>
+
+      {
+        ARTICLES.length === 0 ? (
+          <div class='mb-4'>
+            <p class='text-slate-300 dark:text-gray-100 ml-4'>
+              <span class='text-blue-400 dark:text-lime-300'>¡Ups!</span>
+              Parece que todavía estoy cocinando contenido nuevo. 🍳
+            </p>
+
+            <p class='text-slate-300 dark:text-gray-100 ml-4'>
+              ¡Vuelve pronto para ver artículos geniales sobre desarrollo web,
+              rendimiento y más!
+            </p>
+
+            <p class='text-slate-300 dark:text-gray-100 ml-4'>
+              Mientras tanto, ¿por qué no exploras mi{' '}
+              <a
+                href='/'
+                class='text-blue-400 dark:text-lime-300 hover:underline transition-colors duration-200'
+              >
+                portafolio
+              </a>
+              ?
+            </p>
+          </div>
+        ) : (
+          ARTICLES.map((article) => <CardArticleBlog article={article} />)
+        )
+      }
+      <TerminalMenu />
+    </div>
+  </div>
+</Layout>

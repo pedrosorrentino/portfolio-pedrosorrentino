@@ -1,3 +1,7 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+---
+
 <div class='mb-4'>
   <!-- Friendly message for when there are no articles -->
   <p class='text-slate-300 dark:text-gray-100 ml-4'>
@@ -15,7 +19,7 @@
   <p class='text-slate-300 dark:text-gray-100 ml-4'>
     In the meantime, why not explore my{' '}
     <a
-      href='/'
+      href={getRelativeLocaleUrl(Astro.currentLocale || 'en', '/')}
       class='text-blue-400 dark:text-lime-300 hover:underline transition-colors duration-200'
     >
       portfolio

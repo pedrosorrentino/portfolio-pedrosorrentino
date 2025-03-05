@@ -1,13 +1,17 @@
 ---
-import { DEFAULT_META } from '@/utils/config';
+// src/layouts/Layout.astro
 import { ClientRouter } from 'astro:transitions';
 import '../styles/globa.css';
 import TotalTime from '@/components/TotalTime';
+import { getI18n } from '@/utils/config';
+import LanguagePicker from '@/components/LanguagePicker.astro';
+
 const canonicalUrl = Astro.url.href;
+const i18n = getI18n(Astro.currentLocale);
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang={Astro.currentLocale || 'en'}>
   <head>
     <meta charset='UTF-8' />
     <meta
@@ -15,8 +19,8 @@ const canonicalUrl = Astro.url.href;
       content='width=device-width, initial-scale=1.0, viewport-fit=cover'
     />
 
-    <title>{DEFAULT_META.title}</title>
-    <meta name='description' content={DEFAULT_META.description} />
+    <title>{i18n.meta.title}</title>
+    <meta name='description' content={i18n.meta.description} />
     <meta name='author' content='Pedro Sorrentino' />
     <meta name='publisher' content='Pedro Sorrentino' />
     <meta name='generator' content={Astro.generator} />
@@ -32,14 +36,14 @@ const canonicalUrl = Astro.url.href;
 
     <meta property='og:type' content='website' />
     <meta property='og:url' content={canonicalUrl} />
-    <meta property='og:title' content={DEFAULT_META.title} />
-    <meta property='og:description' content={DEFAULT_META.description} />
+    <meta property='og:title' content={i18n.meta.title} />
+    <meta property='og:description' content={i18n.meta.description} />
     <meta property='og:image' content='/ogImage.webp' />
 
     <meta name='twitter:card' content='summary_large_image' />
     <meta name='twitter:url' content={canonicalUrl} />
-    <meta name='twitter:title' content={DEFAULT_META.title} />
-    <meta name='twitter:description' content={DEFAULT_META.description} />
+    <meta name='twitter:title' content={i18n.meta.title} />
+    <meta name='twitter:description' content={i18n.meta.description} />
     <meta name='twitter:image' content='/ogImage.webp' />
 
     <meta name='color-scheme' content='dark light' />
@@ -49,7 +53,13 @@ const canonicalUrl = Astro.url.href;
   <body class='bg-white dark:bg-gray-900'>
     <main class='max-w-4xl sm:mx-auto mx-5'>
       <slot />
-      <TotalTime client:only='preact' />
     </main>
+
+    <footer
+      class='flex items-center justify-between max-w-4xl sm:mx-auto mx-5 py-8 mt-2'
+    >
+      <LanguagePicker />
+      <TotalTime client:only='preact' />
+    </footer>
   </body>
 </html>

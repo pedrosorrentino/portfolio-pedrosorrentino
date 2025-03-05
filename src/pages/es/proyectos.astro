@@ -1,0 +1,287 @@
+---
+import TerminalMenu from '@/components/TerminalMenu.astro';
+import TerminalHeader from '@/components/TerminalHeader.astro';
+import Layout from '@/layouts/Layout.astro';
+
+const PROJECTS = [
+  {
+    title: 'VideoStats',
+    description:
+      'Una plataforma de análisis de YouTube que proporciona a los creadores información detallada sobre el rendimiento del canal, la interacción de la audiencia y la optimización del contenido.',
+    technologies: [
+      'Next.js',
+      'Turso',
+      'Redis',
+      'Clerk',
+      'Shadcn/ui',
+      'Chart.js',
+    ],
+    image: '/images/videostats.webp',
+    url: 'https://videostats.vercel.app/',
+    github: null,
+    challenges: [
+      {
+        title:
+          'Manejar eficientemente grandes volúmenes de datos de la API de YouTube.',
+        solution:
+          'Implementé un sistema de caché de dos niveles utilizando Redis para datos de acceso frecuente y Turso (SQLite) como base de datos principal. Esto redujo las llamadas a la API de YouTube en aproximadamente un 60% y mejoró el tiempo de respuesta promedio de la aplicación en alrededor de un 45%. Además, utilicé Web Workers para procesar la ingesta de datos en segundo plano, evitando bloqueos de la interfaz de usuario.',
+      },
+      {
+        title: 'Implementar una autenticación segura y escalable.',
+        solution:
+          'Integré Clerk para la gestión completa del ciclo de vida del usuario, incluyendo registro, inicio de sesión, recuperación de contraseña y autenticación de dos factores (2FA). Esto no solo mejoró la seguridad, sino que también me permitió concentrarme en la lógica de negocio principal de la aplicación, reduciendo el tiempo de desarrollo en aproximadamente un 20%.',
+      },
+      {
+        title: 'Visualización de datos intuitiva y personalizable.',
+        solution:
+          'Desarrollé una serie de componentes de visualización personalizados utilizando Chart.js, integrados con los estilos de Shadcn/ui. Estos componentes permiten a los usuarios visualizar métricas clave como vistas, tiempo de visualización, suscriptores e interacción, con opciones de filtrado por período de tiempo y tipo de métrica. Se priorizó la claridad y la facilidad de interpretación de los datos.',
+      },
+      {
+        title: 'Escalabilidad de la base de datos.',
+        solution:
+          'Al utilizar Turso, la base de datos se escala automáticamente para manejar el crecimiento de usuarios y datos, asegurando un rendimiento consistente incluso con un gran número de usuarios concurrentes.',
+      },
+    ],
+    results: [
+      'La plataforma está actualmente en beta y es utilizada por más de 50 creadores de YouTube para analizar el rendimiento de sus canales.',
+      'Los usuarios informan una mejor comprensión de su audiencia y una mayor facilidad para identificar oportunidades de crecimiento de contenido. Los comentarios iniciales indican que los usuarios encuentran útiles las perspectivas de la plataforma para tomar decisiones basadas en datos.',
+      'La arquitectura de la aplicación, basada en Next.js y Vercel, permite una escalabilidad horizontal eficiente para manejar picos de tráfico y crecimiento futuro.',
+    ],
+  },
+  {
+    title: 'Snapcraft',
+    description:
+      'Un editor de medios en línea que permite a los usuarios personalizar imágenes y videos con marcas de agua, superposiciones de texto y pegatinas, accesible desde cualquier dispositivo.',
+    technologies: [
+      'Astro',
+      'React',
+      'Konva.js',
+      'Clerk',
+      'Shadcn/ui',
+      'ffmpeg.wasm',
+    ],
+    image: '/images/snapcraft.webp',
+    url: 'https://snapcraft.site/',
+    github: null,
+    challenges: [
+      {
+        title:
+          'Procesamiento de video del lado del cliente para reducir los costos del servidor y mejorar la privacidad.',
+        solution:
+          'Implementé `ffmpeg.wasm`, una versión de FFmpeg compilada a WebAssembly. Esto permite a los usuarios editar videos directamente en sus navegadores, sin necesidad de subir archivos a un servidor. Esta arquitectura del lado del cliente reduce significativamente los costos de infraestructura y mejora la privacidad del usuario, ya que los datos de video nunca salen del dispositivo del usuario.',
+      },
+      {
+        title: 'Crear una interfaz de edición intuitiva de arrastrar y soltar.',
+        solution:
+          'Utilicé Konva.js, una biblioteca de JavaScript que proporciona una API de alto nivel para manipular elementos gráficos en un lienzo HTML5. Konva.js facilitó la implementación de funciones como arrastrar y soltar, redimensionar, rotar y aplicar estilos a imágenes, texto y pegatinas. Una experiencia de usuario fluida y receptiva fue una prioridad clave.',
+      },
+      {
+        title:
+          'Compatibilidad entre navegadores y dispositivos, y optimización del rendimiento.',
+        solution:
+          'Realicé pruebas exhaustivas en una amplia gama de navegadores (Chrome, Firefox, Safari, Edge) y dispositivos (escritorio, tabletas, móviles) para garantizar una experiencia de usuario consistente. Optimicé el rendimiento de la aplicación utilizando técnicas como la carga diferida de imágenes, la minificación del código y la optimización de las operaciones de Konva.js para minimizar el uso de recursos del navegador.',
+      },
+      {
+        title: 'Gestión del estado de la aplicación para la edición de medios.',
+        solution:
+          'Utilicé Zustand para una gestión eficiente y predecible del estado de la aplicación. Zustand permitió la gestión centralizada del estado de los elementos del editor (imágenes, texto, pegatinas, etc.), facilitando la implementación de funciones como deshacer/rehacer y la sincronización entre diferentes partes de la interfaz.',
+      },
+    ],
+    results: [
+      'Snapcraft permite a los usuarios editar videos y crear contenido visual sin necesidad de software especializado, directamente en su navegador.',
+      'La arquitectura del lado del cliente ha demostrado ser altamente escalable y rentable, requiriendo recursos mínimos del servidor.',
+      'Los usuarios elogian consistentemente la facilidad de uso y la capacidad de respuesta de la aplicación, incluso en dispositivos de baja potencia. Las pruebas iniciales con usuarios indican una alta satisfacción con las herramientas de edición proporcionadas.',
+    ],
+  },
+  {
+    title: 'Roast My Website',
+    description:
+      'Una plataforma impulsada por la comunidad donde los propietarios de sitios web pueden recibir comentarios constructivos sobre su diseño y rendimiento.',
+    technologies: ['Astro', 'Preact', 'Tailwind CSS', 'SQLite', 'Grok AI'],
+    image: '/images/roastmyweb.webp',
+    url: 'https://roastmyweb.site',
+    github: null,
+    challenges: [
+      {
+        title: 'Implementar un sistema de retroalimentación en tiempo real.',
+        solution:
+          'Utilicé Server-Sent Events (SSE) para enviar notificaciones a los usuarios en tiempo real cuando reciben nuevos comentarios en sus sitios web. SSE proporciona una conexión persistente y unidireccional desde el servidor al cliente, lo que la hace ideal para este tipo de funcionalidad. Esta implementación mejoró la interactividad de la plataforma y fomentó una mayor participación del usuario.',
+      },
+      {
+        title:
+          'Integrar IA para proporcionar sugerencias de mejora automatizadas y objetivas.',
+        solution:
+          'Integré la API de Grok AI, un modelo de lenguaje con capacidades de análisis web. Grok AI analiza el código HTML, CSS y JavaScript de los sitios web proporcionados por los usuarios y genera sugerencias de mejora en áreas como accesibilidad, rendimiento, SEO y diseño. Esta funcionalidad agrega un valor significativo a la plataforma, proporcionando comentarios instantáneos y objetivos.',
+      },
+      {
+        title: 'Construcción de comunidad y moderación de contenido.',
+        solution:
+          'Implementé un sistema de registro e inicio de sesión de usuarios utilizando Clerk. Desarrollé un sistema de informes que permite a los usuarios marcar comentarios inapropiados o abusivos. Se establecieron reglas claras de la comunidad y se implementó un sistema de moderación para garantizar un entorno respetuoso y constructivo.',
+      },
+      {
+        title: 'Diseño de la interfaz de usuario.',
+        solution:
+          'Utilicé Tailwind CSS para crear una interfaz de usuario limpia, moderna y receptiva. Se priorizó la simplicidad y la facilidad de uso, lo que permite a los usuarios enviar sus sitios web y recibir comentarios de forma rápida e intuitiva.',
+      },
+    ],
+    results: [
+      'Roast My Website facilita la revisión de más de 150 sitios web, proporcionando a los usuarios comentarios prácticos para mejorar su presencia en línea.',
+      'La plataforma fomenta una comunidad creciente de desarrolladores y diseñadores que comparten conocimientos y brindan críticas constructivas.',
+      'La integración de Grok AI ha demostrado ser eficaz para identificar problemas comunes de diseño y rendimiento, ofreciendo información valiosa junto con los comentarios de la comunidad.',
+    ],
+  },
+  {
+    title: 'Expired Domain Finder',
+    description:
+      'Una herramienta SEO para descubrir dominios caducados valiosos, proporcionando análisis detallados para identificar oportunidades potenciales.',
+    technologies: ['Astro', 'Preact', 'Turso', 'Tailwind CSS', 'Node.js'],
+    image: '/images/expireddomain.webp',
+    url: 'https://expireddomain.site',
+    github: null,
+    challenges: [
+      {
+        title:
+          'Recopilar y procesar eficientemente grandes cantidades de datos de dominios caducados.',
+        solution:
+          'Desarrollé un scraper personalizado en Node.js utilizando bibliotecas como `axios` para realizar solicitudes HTTP y `cheerio` para analizar el HTML de las fuentes de datos. Implementé técnicas responsables de web scraping, incluyendo el respeto de `robots.txt` y la implementación de retrasos para evitar sobrecargar los servidores de destino. Los datos recopilados se almacenan y procesan eficientemente utilizando Turso (SQLite).',
+      },
+      {
+        title: 'Analizar la calidad y el valor de los dominios caducados.',
+        solution:
+          'Integré las API de Ahrefs y Majestic para obtener métricas SEO clave como Domain Rating (DR), URL Rating (UR), número de backlinks, dominios de referencia y tráfico orgánico estimado. Desarrollé un algoritmo de puntuación personalizado que combina estas métricas para evaluar el valor potencial de cada dominio caducado, lo que permite a los usuarios identificar rápidamente oportunidades prometedoras.',
+      },
+      {
+        title:
+          'Presentar los resultados de una manera clara y útil, con opciones de filtrado y clasificación.',
+        solution:
+          'Diseñé una interfaz de usuario interactiva con Preact y Tailwind CSS. La interfaz permite a los usuarios buscar dominios caducados por palabra clave, filtrar por métricas SEO (DR, UR, backlinks, etc.) y ordenar los resultados según diferentes criterios. Se priorizó la velocidad y la facilidad de uso, lo que permite a los usuarios encontrar eficientemente los dominios que cumplen con sus requisitos.',
+      },
+    ],
+    results: [
+      'Expired Domain Finder proporciona a los usuarios una forma simplificada de descubrir dominios caducados potencialmente valiosos para fines de SEO.',
+      'La herramienta agrega datos de múltiples fuentes, ofreciendo una visión completa de las métricas clave de cada dominio.',
+      'La interfaz fácil de usar y las capacidades de filtrado permiten una identificación eficiente de dominios relevantes basados en criterios específicos.',
+    ],
+  },
+  {
+    title: 'Fly Fast',
+    description:
+      'Una plataforma de reserva de vuelos que ofrece datos de vuelos en tiempo real, comparaciones de precios y una experiencia de reserva fluida.',
+    technologies: ['Next.js', 'Tailwind CSS', 'MongoDB', 'AMADEUS API'],
+    image: '/images/flyfast.webp',
+    url: 'https://fly-fast.vercel.app/',
+    github: null,
+    challenges: [
+      {
+        title:
+          'Integración con la API de Amadeus para datos de vuelos en tiempo real.',
+        solution:
+          'Utilicé el SDK oficial de Amadeus para Node.js para interactuar con la API de Amadeus. Implementé la autenticación, el manejo de errores, la gestión de límites de la API (para evitar exceder las cuotas) y la conversión de los datos de la API a un formato consistente y fácil de usar dentro de la aplicación. Se implementaron mecanismos robustos de manejo de errores y reintentos para garantizar la fiabilidad de los datos.',
+      },
+      {
+        title:
+          'Crear una interfaz de búsqueda de vuelos eficiente, receptiva y fácil de usar.',
+        solution:
+          'Utilicé Next.js para construir una interfaz de usuario rápida y optimizada para SEO. Aproveché las capacidades de Server-Side Rendering (SSR) y Static Site Generation (SSG) de Next.js para optimizar los tiempos de carga y la experiencia general del usuario. La interfaz se diseñó utilizando Tailwind CSS, con componentes personalizados para la selección de fechas (utilizando un selector de fechas), la selección de aeropuertos (con autocompletado), la selección de pasajeros y para mostrar los resultados de la búsqueda (con opciones de filtrado y clasificación).',
+      },
+      {
+        title:
+          'Manejo seguro de pagos y cumplimiento de las regulaciones PCI DSS.',
+        solution:
+          'Integré Stripe como pasarela de pago. Stripe proporciona una API segura y fácil de usar para procesar pagos con tarjeta de crédito y débito. Utilicé Stripe Elements, componentes de interfaz de usuario preconstruidos, para garantizar el cumplimiento de PCI DSS (Payment Card Industry Data Security Standard), ya que los datos confidenciales de la tarjeta nunca llegan a los servidores de la aplicación. Implementé medidas de seguridad adicionales, incluyendo la validación de datos del lado del servidor y la protección contra ataques de Cross-Site Request Forgery (CSRF).',
+      },
+    ],
+    results: [
+      'Fly Fast ofrece una experiencia de búsqueda y reserva de vuelos simplificada e intuitiva.',
+      'La integración con la API de Amadeus proporciona acceso a una amplia gama de vuelos y tarifas de varias aerolíneas.',
+      'La plataforma cumple con las prácticas de seguridad estándar de la industria para el procesamiento de pagos, garantizando la seguridad de los datos del usuario.',
+    ],
+  },
+];
+---
+
+<Layout>
+  <div
+    class='bg-slate-700 dark:bg-black text-white dark:text-gray-100 p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-lg'
+  >
+    <h1 class='hidden'>Proyectos - Pedro Sorrentino</h1>
+
+    <TerminalHeader title='Cosas que he construido con amor ❤️' />
+
+    <div class='mt-4 space-y-8'>
+      <p class='text-green-400 dark:text-rose-400'>$ cat proyectos.txt</p>
+
+      {
+        PROJECTS.map((project) => (
+          <div class='mb-16'>
+            <div class='flex items-center justify-between flex-col sm:flex-row'>
+              <div class='sm:w-2/3'>
+                <h2 class='text-2xl dark:text-gray-200 font-bold'>
+                  {project.title}
+                </h2>
+                <p class='text-blue-400 dark:text-purple-300'>
+                  ~/proyectos/{project.title.toLowerCase().replace(/ /g, '_')}:{' '}
+                </p>
+                <p class='text-slate-300 dark:text-gray-300 ml-4'>
+                  {project.description}
+                </p>
+                <p class='text-slate-300 dark:text-gray-300 ml-4'>
+                  <span class='text-blue-400 dark:text-purple-300'>
+                    Tecnologías:
+                  </span>{' '}
+                  {project.technologies.join(', ')}
+                </p>
+                <p class='text-slate-300 dark:text-gray-300 ml-4'>
+                  <span class='text-blue-400 dark:text-purple-300'>URL:</span>{' '}
+                  <a
+                    href={project.url}
+                    class='text-lime-400 dark:text-amber-400 hover:underline transition-colors duration-200'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    {project.url}
+                  </a>
+                </p>
+              </div>
+
+              <div class='sm:w-1/3 sm:pl-8'>
+                <img
+                  src={project.image}
+                  alt={`Captura de pantalla de ${project.title}`}
+                  class='w-full rounded-md border border-gray-600'
+                />
+              </div>
+            </div>
+
+            <div class='mt-4 ml-4'>
+              <h3 class='text-blue-400 dark:text-purple-300'>
+                ~/proyecto/desafios:
+              </h3>
+              <ul class='list-disc list-inside  text-slate-300 dark:text-gray-300'>
+                {project.challenges.map((challenge) => (
+                  <li>
+                    <span class='font-bold'>Desafío:</span> {challenge.title}{' '}
+                    <br />
+                    <span class='font-bold'>Solución:</span>{' '}
+                    {challenge.solution}
+                  </li>
+                ))}
+              </ul>
+
+              <h3 class='text-blue-400 dark:text-purple-300'>
+                ~/proyecto/resultados:{' '}
+              </h3>
+              <ul class='list-disc list-inside text-slate-300 dark:text-gray-300'>
+                {project.results.map((result) => (
+                  <li>{result}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))
+      }
+
+      <TerminalMenu />
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,62 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const currentLocale = Astro.currentLocale || 'en';
+const locales = ['en', 'es'];
+
+const fullPath = Astro.url.pathname;
+
+function removeLocalePrefix(path: string) {
+  for (const loc of locales) {
+    if (path.startsWith(`/${loc}/`)) {
+      return path.slice(`/${loc}`.length);
+    }
+  }
+  return path;
+}
+
+const currentPath = removeLocalePrefix(fullPath);
+
+const localeNames: Record<string, string> = {
+  en: 'English',
+  es: 'Español',
+};
+
+const localeFlags: Record<string, string> = {
+  en: '🇺🇸',
+  es: '🇪🇸',
+};
+---
+
+<div>
+  <p class='text-sm text-gray-600 dark:text-gray-400 mb-2'>
+    {
+      currentLocale === 'en'
+        ? 'This portfolio is available in:'
+        : 'Este portafolio está disponible en:'
+    }
+  </p>
+  <ul class='flex gap-4'>
+    {
+      locales.map((locale) => (
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, currentPath)}
+            class:list={[
+              'flex items-center gap-1.5 px-3 py-1.5 rounded-md transition-colors',
+              locale === currentLocale
+                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 font-medium cursor-default'
+                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800',
+            ]}
+            aria-current={locale === currentLocale ? 'true' : 'false'}
+          >
+            <span class='text-lg' aria-hidden='true'>
+              {localeFlags[locale]}
+            </span>
+            <span>{localeNames[locale]}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>

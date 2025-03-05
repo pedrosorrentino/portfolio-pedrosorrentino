@@ -1,0 +1,101 @@
+---
+import TerminalHeader from '@/components/TerminalHeader.astro'; // Encabezado de Terminal
+import TerminalMenu from '@/components/TerminalMenu.astro'; // Menú de Terminal
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout>
+  <div
+    class='bg-slate-700 dark:bg-black text-white dark:text-gray-100 p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-lg'
+  >
+    <h1 class='hidden'>
+      Pedro Sorrentino - Desarrollador Full Stack | JavaScript, TypeScript,
+      React, Next.js, Astro
+    </h1>
+
+    <TerminalHeader title=`¡Hola Mundo! Soy Pedro` />
+
+    <div class='my-4 space-y-2'>
+      <p class='text-green-400 dark:text-rose-400'>$ cat acerca-de.txt</p>
+
+      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/nombre:</p>
+      <p class='text-slate-300 dark:text-gray-300 ml-4'>Pedro Sorrentino</p>
+
+      <h2 class='hidden'>Rol</h2>
+      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/rol:</p>
+      <p class='text-slate-300 dark:text-gray-300 ml-4'>
+        Desarrollador Full Stack | JavaScript, TypeScript, React, Next.js, Astro
+      </p>
+
+      <h2 class='hidden'>Habilidades</h2>
+      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/habilidades:</p>
+      <p class='text-slate-300 dark:text-gray-300 ml-4'>
+        <span class='font-bold'>Lenguajes:</span> JavaScript (ES6+ - Experto), TypeScript
+        (Avanzado), HTML5 (Experto), CSS3 (Avanzado), Node.js (Experto), Python (Intermedio),
+        Rust (Aprendiendo)
+        <br />
+        <span class='font-bold'>Frameworks y Librerías:</span> React (Experto), Next.js
+        (Experto), Astro (Experto), Zustand (Intermedio), Vue.js (Básico), Tailwind
+        CSS (Experto), Shadcn/ui
+        <br />
+        <span class='font-bold'>Bases de Datos:</span> MongoDB (Avanzado), Turso
+        (SQLite - Avanzado), MySQL (Avanzado), PostgreSQL (Intermedio), Redis (Intermedio),
+        Firebase (Intermedio)
+        <br />
+        <span class='font-bold'>Herramientas y Tecnologías:</span> Git, GitHub, GitLab,
+        Docker, Google Cloud Platform, Vercel, Netlify, Heroku, ESLint, Prettier,
+        npm, yarn, pnpm, REST APIs, Lighthouse, Google PageSpeed Insights
+        <br />
+        <span class='font-bold'>Metodologías:</span> Agile (Básico), Optimización
+        del Rendimiento Web
+      </p>
+
+      <h2 class='hidden'>Logros Clave</h2>
+      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/logros:</p>
+      <ul class='list-none list-inside ml-4 text-slate-300 dark:text-gray-300'>
+        <li>
+          <span class='text-green-400 dark:text-rose-400'>✔</span> Fundé y lideré
+          OrdepDev como desarrollador full-stack freelance desde 2010, gestionando
+          proyectos y liderando pequeños equipos (1-5 personas) para entregar soluciones
+          web personalizadas para clientes.
+        </li>
+        <li>
+          <span class='text-green-400 dark:text-rose-400'>✔</span> Desarrollé temas
+          y plugins personalizados de WordPress para Publi Media 7 (2002-2004), creando
+          soluciones web a medida para clientes.
+        </li>
+        <li>
+          <span class='text-green-400 dark:text-rose-400'>✔</span> Desarrollé APIs
+          RESTful con Node.js y MySQL, asegurando escalabilidad, seguridad y eficiencia,
+          durante mi tiempo en AD Computers (2011-2012).
+        </li>
+      </ul>
+
+      <h2 class='hidden'>Acerca de mí</h2>
+      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/mi:</p>
+      <p class='text-slate-300 dark:text-gray-300 ml-4'>
+        Soy un desarrollador full-stack autodidacta con más de 14 años de
+        experiencia construyendo aplicaciones web, principalmente usando
+        JavaScript y su ecosistema. Me apasiona crear soluciones eficientes,
+        fáciles de usar y escalables. Tengo un sólido historial liderando
+        proyectos desde el concepto hasta el lanzamiento, tanto de forma
+        independiente como parte de pequeños equipos. Soy competente tanto en el
+        desarrollo front-end como back-end, con experiencia en React, Next.js y
+        Astro. También soy un viajero ávido y disfruto explorando nuevas
+        tecnologías y contribuyendo a la comunidad de código abierto.
+      </p>
+
+      <h2 class='hidden'>Llamada a la acción</h2>
+      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/cta:</p>
+      <p class='text-slate-300 dark:text-gray-300 ml-4'>
+        Actualmente estoy buscando oportunidades remotas a tiempo completo donde
+        pueda aprovechar mi experiencia en JavaScript, React, Next.js y Astro
+        para construir aplicaciones web innovadoras e impactantes. Estoy
+        particularmente interesado en unirme a un entorno de equipo productivo y
+        amigable. ¡Conectémonos!
+      </p>
+
+      <TerminalMenu />
+    </div>
+  </div>
+</Layout>
