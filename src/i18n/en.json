@@ -5,7 +5,12 @@
     "text1": "Explore my work",
     "text2": "Visit my GitHub profile",
     "downloadcv": "Download CV",
-    "urlcv": "/cv_en.pdf"
+    "urlcv": "/cv_en.pdf",
+    "formName": "Name",
+    "formEmail": "Email",
+    "formMessage": "Message",
+    "formSubmit": "Submit",
+    "formSuccess": "Thank you for your message! I will get back to you as soon as possible."
   },
 
   "menu": [

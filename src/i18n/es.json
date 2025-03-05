@@ -5,7 +5,12 @@
     "text1": "Explora mi trabajo",
     "text2": "Visita mi perfil de GitHub",
     "downloadcv": "Descargar CV",
-    "urlcv": "/cv_es.pdf"
+    "urlcv": "/cv_es.pdf",
+    "formName": "Nombre",
+    "formEmail": "Correo electrónico",
+    "formMessage": "Mensaje",
+    "formSubmit": "Enviar",
+    "formSuccess": "¡Gracias por tu mensaje! Me pondré en contacto contigo en la mayor brevedad posible."
   },
   "menu": [
     {
