@@ -1,99 +1,161 @@
 ---
+import Layout from '@/layouts/Layout.astro';
 import TerminalHeader from '@/components/TerminalHeader.astro';
-import Layout from '../layouts/Layout.astro';
 import TerminalMenu from '@/components/TerminalMenu.astro';
+import { Icon } from 'astro-icon/components';
+import { getI18n } from '@/utils/config';
+import { marked } from 'marked';
+
+const i18n = getI18n(Astro.currentLocale);
+
+const skills = {
+  Languages:
+    'JavaScript (ES6+ Expert), TypeScript (Advanced), HTML5 (Expert), CSS3 (Advanced), Node.js (Expert), Python (Intermediate), Rust (Learning)',
+  Frameworks:
+    'React (Expert), Next.js (Expert), Astro (Expert), Zustand (Intermediate), Vue.js (Basic), Tailwind CSS (Expert)',
+  Databases:
+    'MongoDB (Advanced), Turso (SQLite - Advanced), MySQL (Advanced), PostgreSQL (Intermediate), Redis (Intermediate), Firebase (Intermediate)',
+  Tools:
+    'Git, GitHub, GitLab, Docker, Google Cloud Platform, Vercel, Netlify, Heroku, ESLint, Prettier, npm, yarn, pnpm, REST APIs, Lighthouse, Google PageSpeed Insights',
+};
+
+const achievements = [
+  'Founded and lead OrdepDev as a freelance full-stack developer since 2010, managing projects and leading small teams (1-5 people) to deliver custom web solutions for clients.',
+  'Maintained and supervised critical IT and electronic systems for tunnel control and safety at UTE Alta Capacidad Gran Canaria (2004 - 2024), ensuring operational reliability in complex technical environments.',
+  'Developed custom WordPress themes and plugins for Publi Media 7 (2002-2004), creating tailored web solutions for clients.',
+  'Developed RESTful APIs with Node.js and MySQL, ensuring scalability, security, and efficiency, during my time at AD Computers (2011-2012).',
+];
+
+const ctaHtml = await marked.parse(i18n.indexPage.ctaText);
 ---
 
 <Layout>
   <div
-    class='bg-slate-700 dark:bg-black text-white dark:text-gray-100 p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-lg'
+    class='bg-brand-surface text-brand-text-primary p-4 sm:p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-md'
   >
-    <h1 class='hidden'>
-      Pedro Sorrentino - Full Stack Developer | JavaScript, TypeScript, React,
-      Next.js, Astro
-    </h1>
+    <h1 class='hidden'>{i18n.pageTitles.indexHidden}</h1>
 
-    <TerminalHeader title=`Hello World! I'm Pedro` />
+    <TerminalHeader title={i18n.pageTitles.index} />
 
-    <div class='my-4 space-y-2'>
-      <p class='text-green-400 dark:text-rose-400'>$ cat about_me.txt</p>
-
-      <p class='text-blue-400 dark:text-purple-300'>~/about/name:</p>
-      <p class='text-slate-300 dark:text-gray-300 ml-4'>Pedro Sorrentino</p>
-
-      <h2 class='hidden'>Role</h2>
-      <p class='text-blue-400 dark:text-purple-300'>~/about/role:</p>
-      <p class='text-slate-300 dark:text-gray-300 ml-4'>
-        Full Stack Developer | JavaScript, TypeScript, React, Next.js, Astro
-      </p>
-
-      <h2 class='hidden'>Skills</h2>
-      <p class='text-blue-400 dark:text-purple-300'>~/about/skills:</p>
-      <p class='text-slate-300 dark:text-gray-300 ml-4'>
-        <span class='font-bold'>Languages:</span> JavaScript (ES6+ - Expert), TypeScript
-        (Advanced), HTML5 (Expert), CSS3 (Advanced), Node.js (Expert), Python (Intermediate),
-        Rust (Learning)
-        <br />
-        <span class='font-bold'>Frameworks & Libraries:</span> React (Expert), Next.js
-        (Expert), Astro (Expert), Zustand (Intermediate), Vue.js (Basic), Tailwind
-        CSS (Expert), Shadcn/ui
-        <br />
-        <span class='font-bold'>Databases:</span> MongoDB (Advanced), Turso (SQLite
-        - Advanced), MySQL (Advanced), PostgreSQL (Intermediate), Redis (Intermediate),
-        Firebase (Intermediate)
-        <br />
-        <span class='font-bold'>Tools & Technologies:</span> Git, GitHub, GitLab,
-        Docker, Google Cloud Platform, Vercel, Netlify, Heroku, ESLint, Prettier,
-        npm, yarn, pnpm, REST APIs, Lighthouse, Google PageSpeed Insights
-        <br />
-        <span class='font-bold'>Methodologies:</span> Agile (Basic), Web Performance
-        Optimization
-      </p>
-
-      <h2 class='hidden'>Key Achievements</h2>
-      <p class='text-blue-400 dark:text-purple-300'>~/about/achievements:</p>
-      <ul class='list-none list-inside ml-4 text-slate-300 dark:text-gray-300'>
-        <li>
-          <span class='text-green-400 dark:text-rose-400'>✔</span> Founded and lead
-          OrdepDev as a freelance full-stack developer since 2010, managing projects
-          and leading small teams (1-5 people) to deliver custom web solutions for
-          clients.
-        </li>
-        <li>
-          <span class='text-green-400 dark:text-rose-400'>✔</span> Developed custom
-          WordPress themes and plugins for Publi Media 7 (2002-2004), creating tailored
-          web solutions for clients.
-        </li>
-        <li>
-          <span class='text-green-400 dark:text-rose-400'>✔</span> Developed RESTful
-          APIs with Node.js and MySQL, ensuring scalability, security, and efficiency,
-          during my time at AD Computers (2011-2012).
-        </li>
-      </ul>
-
-      <h2 class='hidden'>About Me</h2>
-      <p class='text-blue-400 dark:text-purple-300'>~/about/me:</p>
-      <p class='text-slate-300 dark:text-gray-300 ml-4'>
-        I'm a self-taught full-stack developer with over 14 years of experience
-        building web applications, primarily using JavaScript and its ecosystem.
-        I'm passionate about creating performant, user-friendly, and scalable
-        solutions. I have a strong track record of leading projects from concept
-        to launch, both independently and as part of small teams. I'm proficient
-        in both front-end and back-end development, with expertise in React,
-        Next.js, and Astro. I'm also an avid traveler and enjoy exploring new
-        technologies and contributing to the open-source community.
-      </p>
-
-      <h2 class='hidden'>Call to Action</h2>
-      <p class='text-blue-400 dark:text-purple-300'>~/about/cta:</p>
-      <p class='text-slate-300 dark:text-gray-300 ml-4'>
-        I'm currently seeking full-time remote opportunities where I can
-        leverage my expertise in JavaScript, React, Next.js, and Astro to build
-        innovative and impactful web applications. I'm particularly interested
-        in joining a productive and friendly team environment. Let's connect!
-      </p>
-
-      <TerminalMenu />
+    <div class='mt-6 mb-4'>
+      <p class='text-brand-accent-secondary'>{i18n.catCommands.index}</p>
     </div>
+
+    <div class='space-y-8 font-sans'>
+      <section
+        aria-labelledby='role-title'
+        class='p-4 border border-brand-border rounded-md bg-brand-background'
+      >
+        <h2
+          id='role-title'
+          class='text-xl font-semibold text-brand-accent-primary mb-2 flex items-center gap-2'
+        >
+          <Icon name='fluent-emoji-flat:man-technologist' class='w-5 h-5' />
+          {i18n.indexPage.roleTitle}
+        </h2>
+        <p class='text-brand-text-secondary ml-1 text-base'>
+          <span class='font-medium text-brand-text-primary'
+            >{i18n.indexPage.roleDesc1}</span
+          > |
+          <span class='font-medium text-brand-text-primary'>
+            {i18n.indexPage.roleDesc2}</span
+          >
+        </p>
+      </section>
+
+      <section
+        aria-labelledby='skills-title'
+        class='p-4 border border-brand-border rounded-md bg-brand-background'
+      >
+        <h2
+          id='skills-title'
+          class='text-xl font-semibold text-brand-accent-primary mb-3 flex items-center gap-2'
+        >
+          <Icon name='fluent-emoji-flat:light-bulb' class='w-5 h-5' />
+          {i18n.indexPage.skillsTitle}
+        </h2>
+        <div class='space-y-3'>
+          {
+            Object.entries(skills).map(([category, list]) => (
+              <div>
+                <h3 class='font-medium text-base text-brand-text-secondary mb-1.5'>
+                  {category}:
+                </h3>
+                <div class='flex flex-wrap gap-1.5'>
+                  {list.split(', ').map((skill) => (
+                    <span class='text-sm font-medium px-2.5 py-0.5 rounded-full bg-brand-tag-bg text-brand-tag-text'>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section
+        aria-labelledby='achievements-title'
+        class='p-4 border border-brand-border rounded-md bg-brand-background'
+      >
+        <h2
+          id='achievements-title'
+          class='text-xl font-semibold text-brand-accent-primary mb-3 flex items-center gap-2'
+        >
+          <Icon name='fluent-emoji-flat:trophy' class='w-5 h-5' />
+          {i18n.indexPage.achievementsTitle}
+        </h2>
+        <ul class='list-none space-y-2.5'>
+          {
+            achievements.map((item) => (
+              <li class='flex items-start gap-2'>
+                <Icon
+                  name='fluent-emoji-flat:check-mark-button'
+                  class='w-4 h-4 text-brand-success mt-1 flex-shrink-0'
+                />
+                <span class='text-brand-text-secondary text-base leading-relaxed'>
+                  {item}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section
+        aria-labelledby='about-title'
+        class='p-4 border border-brand-border rounded-md bg-brand-background'
+      >
+        <h2
+          id='about-title'
+          class='text-xl font-semibold text-brand-accent-primary mb-2 flex items-center gap-2'
+        >
+          <Icon name='fluent-emoji-flat:identification-card' class='w-5 h-5' />
+          {i18n.indexPage.aboutTitle}
+        </h2>
+        <p class='text-brand-text-secondary text-base leading-relaxed'>
+          {i18n.indexPage.aboutText}
+        </p>
+      </section>
+
+      <section
+        aria-labelledby='cta-title'
+        class='p-4 border border-brand-info rounded-md bg-brand-info-bg'
+      >
+        <h2
+          id='cta-title'
+          class='text-xl font-semibold text-brand-info mb-2 flex items-center gap-2'
+        >
+          <Icon name='fluent-emoji-flat:rocket' class='w-5 h-5' />
+          {i18n.indexPage.ctaTitle}
+        </h2>
+        <div
+          class='text-brand-info-fg text-base leading-relaxed prose prose-strong:text-brand-info-fg'
+          set:html={ctaHtml}
+        />
+      </section>
+    </div>
+
+    <TerminalMenu />
   </div>
 </Layout>

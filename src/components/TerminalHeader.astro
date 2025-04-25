@@ -8,7 +8,7 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<div class='bg-white dark:bg-gray-900 px-2 py-1 rounded-lg'>
+<div class='bg-brand-surface px-2 py-1 rounded-lg'>
   <div class='flex justify-between items-center'>
     <div class='hidden sm:flex space-x-2'>
       <div
@@ -24,7 +24,10 @@ const { title } = Astro.props;
       >
       </div>
     </div>
-    <p class='text-sm text-slate-500 dark:text-gray-400'>{title}</p>
+
+    <p class='text-sm text-brand-text-muted'>
+      {title}
+    </p>
     <ThemeToggle client:only='preact' />
   </div>
 </div>

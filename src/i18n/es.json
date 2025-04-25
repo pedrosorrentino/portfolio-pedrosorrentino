@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Pedro Sorrentino | Desarrollador JavaScript y Experto en Frameworks Web Modernos",
-    "description": "Soy un desarrollador JavaScript especializado en Next.js y Astro. Construyo aplicaciones web rápidas y escalables, y optimizo el rendimiento para obtener resultados impactantes. ¡Trabajemos juntos y hagamos realidad tu visión con tecnología de vanguardia! 🚀",
+    "title": "Pedro Sorrentino | Desarrollador JavaScript y Especialista en Informática",
+    "description": "14+ años como Desarrollador JavaScript y Especialista en Informática. Construyo aplicaciones web escalables y de alto rendimiento con Next.js, Astro y React, combinando experiencia en desarrollo con sólidos conocimientos de TI para crear soluciones robustas. Explora mis proyectos.",
     "text1": "Explora mi trabajo",
     "text2": "Visita mi perfil de GitHub",
     "downloadcv": "Descargar CV",
@@ -10,20 +10,22 @@
     "formEmail": "Correo electrónico",
     "formMessage": "Mensaje",
     "formSubmit": "Enviar",
-    "formSuccess": "¡Gracias por tu mensaje! Me pondré en contacto contigo en la mayor brevedad posible."
+    "formSuccess": "¡Mensaje enviado correctamente!",
+    "formErrorName": "Por favor, introduce tu nombre.",
+    "formErrorEmail": "Por favor, introduce una dirección de correo válida.",
+    "formErrorMessage": "Por favor, introduce tu mensaje.",
+    "formErrorSubmit": "Por favor, corrige los errores indicados.",
+    "formSending": "Enviando...",
+    "formErrorServer": "¡Ups! Algo salió mal al enviar el formulario. Por favor, inténtalo de nuevo más tarde.",
+    "formErrorNetwork": "¡Ups! Error de red. Por favor, revisa tu conexión e inténtalo de nuevo."
   },
   "menu": [
-    {
-      "title": "~/acerca-de",
-      "url": "/",
-      "description": "Acerca de mí"
-    },
+    { "title": "~/acerca-de", "url": "/", "description": "Acerca de mí" },
     {
       "title": "~/proyectos",
       "url": "/proyectos",
       "description": "Proyectos en los que he trabajado"
     },
-
     {
       "title": "~/recursos",
       "url": "/recursos",
@@ -34,10 +36,77 @@
       "url": "/blog",
       "description": "Mis últimas publicaciones de blog"
     },
-    {
-      "title": "~/contactar",
-      "url": "/contactar",
-      "description": "Contáctame"
-    }
-  ]
+    { "title": "~/contactar", "url": "/contactar", "description": "Contáctame" }
+  ],
+  "pageTitles": {
+    "index": "¡Hola Mundo! Soy Pedro Sorrentino",
+    "projects": "Cosas que he construido con amor ❤️",
+    "resources": "Herramientas y recursos que me encantan",
+    "blog": "Últimas publicaciones del blog",
+    "contact": "Contáctame",
+    "indexHidden": "Pedro Sorrentino - Desarrollador Experto en JavaScript & TypeScript | Especialista en Informática",
+    "projectsHidden": "Proyectos - Pedro Sorrentino",
+    "resourcesHidden": "Recursos que utilizo",
+    "blogHidden": "Últimas publicaciones del blog",
+    "contactHidden": "Contacta a Pedro Sorrentino"
+  },
+  "catCommands": {
+    "index": "$ cat acerca-de.txt",
+    "projects": "$ cat proyectos.txt",
+    "resources": "$ cat recursos.txt",
+    "blog": "$ cat blog.txt",
+    "contact": "$ cat contactar.txt"
+  },
+  "indexPage": {
+    "roleTitle": "Rol",
+    "roleDesc1": "Desarrollador Experto en JavaScript & TypeScript",
+    "roleDesc2": "Especialista en Informática",
+    "skillsTitle": "Habilidades",
+    "achievementsTitle": "Logros Clave",
+    "aboutTitle": "Acerca de mí",
+    "aboutText": "Con más de 14 años de trayectoria en tecnología, mi camino partió de una base sólida en informática y sistemas TI, evolucionando hacia un desarrollador full-stack dedicado al ecosistema JavaScript. Me apasiona construir soluciones web eficientes, escalables y centradas en el usuario, empleando herramientas modernas como React, Next.js y Astro. Disfruto dando vida a las ideas y tengo un historial sólido liderando proyectos desde su concepción hasta el lanzamiento, tanto de forma autónoma como en equipos colaborativos. Más allá del código, siempre estoy explorando tecnologías emergentes y disfruto viajando.",
+    "ctaTitle": "¡Conectemos!",
+    "ctaText": "En búsqueda activa de oportunidades remotas a tiempo completo para roles de **Programador** o **Especialista en Informática y Nuevas Tecnologías**. Aporto amplia experiencia, sólida capacidad para resolver problemas y dominio de tecnologías modernas (incluyendo JavaScript, React, Next.js, Astro). Mi objetivo es contribuir a soluciones innovadoras en un equipo productivo y con buen ambiente."
+  },
+  "contactPage": {
+    "intro": "Completa el formulario a continuación para enviarme un mensaje. ¡Te responderé tan pronto como sea posible!"
+  },
+  "footer": {
+    "totalLoadTime": "Tiempo total de carga"
+  },
+  "languagePicker": {
+    "intro": "Este portafolio está disponible en:"
+  },
+  "cardArticleBlog": {
+    "created": "Creado",
+    "url": "URL"
+  },
+  "noArticlesBlog": {
+    "oops": "¡Ups!",
+    "cooking": "Parece que todavía estoy cocinando contenido fresco. 🍳",
+    "checkBack": "¡Vuelve pronto para encontrar artículos geniales sobre desarrollo web, rendimiento y más!",
+    "explore": "Mientras tanto, ¿por qué no exploras mi",
+    "portfolioLink": "portafolio"
+  },
+  "courseItem": {
+    "skills": "Aptitudes"
+  },
+  "projectCard": {
+    "technologies": "Tecnologías",
+    "url": "URL",
+    "challengesPath": "~/proyecto/desafios",
+    "resultsPath": "~/proyecto/resultados",
+    "imageAlt": "Captura de pantalla de {title}"
+  },
+  "resourceItem": {
+    "why": "Por qué",
+    "linkTitle": "Link a la referencia"
+  },
+  "resourceCategory": {
+    "basePath": "~/recursos"
+  },
+  "terminalMenu": {
+    "githubTitle": "GitHub",
+    "githubDesc": "Visita mi perfil de GitHub"
+  }
 }

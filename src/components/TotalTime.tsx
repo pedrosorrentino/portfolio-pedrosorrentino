@@ -1,18 +1,27 @@
 import { useEffect, useState } from 'preact/hooks';
+import { getI18n } from '@/utils/config';
 
 export default function TotalTime() {
   const [loadTime, setLoadTime] = useState<string>('Calculating...');
+  const [i18n, setI18n] = useState(getI18n('en'));
 
   useEffect(() => {
-    const handleLoadTime = (loadTime: number) => {
-      if (loadTime < 100) {
+    const lang = document.documentElement.lang || 'en';
+    setI18n(getI18n(lang));
+
+    const handleLoadTime = (loadTimeValue: number) => {
+      if (loadTimeValue < 100) {
         setLoadTime('Instant load 🚀');
       } else {
-        setLoadTime(`${loadTime.toFixed(2)} ms`);
+        setLoadTime(`${loadTimeValue.toFixed(2)} ms`);
       }
     };
 
-    if (window.PerformanceObserver) {
+    if (
+      typeof window !== 'undefined' &&
+      window.performance &&
+      window.PerformanceObserver
+    ) {
       const observer = new PerformanceObserver((list) => {
         const entries = list.getEntriesByType('navigation');
         for (const entry of entries) {
@@ -21,10 +30,10 @@ export default function TotalTime() {
             'domContentLoadedEventEnd' in entry
           ) {
             const navigationEntry = entry as PerformanceNavigationTiming;
-            const loadTime =
+            const calculatedLoadTime =
               navigationEntry.domContentLoadedEventEnd -
               navigationEntry.startTime;
-            handleLoadTime(loadTime);
+            handleLoadTime(Math.max(0, calculatedLoadTime));
           }
         }
       });
@@ -32,22 +41,25 @@ export default function TotalTime() {
       observer.observe({ type: 'navigation', buffered: true });
 
       return () => observer.disconnect();
-    } else {
+    } else if (typeof window !== 'undefined') {
       const startTime = Date.now();
-      window.addEventListener('load', () => {
-        const loadTime = Date.now() - startTime;
-        handleLoadTime(loadTime);
-      });
+      const onLoad = () => {
+        const calculatedLoadTime = Date.now() - startTime;
+        handleLoadTime(Math.max(0, calculatedLoadTime));
+        window.removeEventListener('load', onLoad);
+      };
+      window.addEventListener('load', onLoad);
+      return () => window.removeEventListener('load', onLoad);
     }
   }, []);
 
   return (
-    <div className='load-time-container text-xs p-4 text-center font-mono'>
-      <p className='m-0 text-gray-700 dark:text-gray-200'>
-        Total load time:{' '}
+    <div className='load-time-container text-xs text-center font-mono'>
+      <p className='m-0 text-brand-text-muted'>
+        {i18n.footer.totalLoadTime}:{' '}
         <span
           id='load-time'
-          className='font-bold text-blue-500 dark:text-purple-400'
+          className='font-bold text-brand-info'
           aria-live='polite'
         >
           {loadTime}

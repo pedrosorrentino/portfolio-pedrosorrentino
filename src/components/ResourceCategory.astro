@@ -1,0 +1,63 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { ResourceCategory as ResourceCategoryType } from '@/utils/types';
+import { isCourseItem } from '@/utils/types';
+import ResourceItem from './ResourceItem.astro';
+import CourseItem from './CourseItem.astro';
+import { getI18n } from '@/utils/config';
+
+interface Props {
+  resource: ResourceCategoryType;
+}
+
+const { resource } = Astro.props;
+const i18n = getI18n(Astro.currentLocale);
+
+const categoryIcons: Record<string, string> = {
+  'Development Methodologies & Practices': 'fluent-emoji-flat:gear',
+  Hardware: 'fluent-emoji-flat:desktop-computer',
+  Software: 'fluent-emoji-flat:floppy-disk',
+  'Apps & Tools': 'fluent-emoji-flat:toolbox',
+  'Learning Resources': 'fluent-emoji-flat:graduation-cap',
+  'Metodologías y Prácticas de Desarrollo': 'fluent-emoji-flat:gear',
+  'Aplicaciones y Herramientas': 'fluent-emoji-flat:toolbox',
+  'Recursos de Aprendizaje': 'fluent-emoji-flat:graduation-cap',
+};
+
+const categoryPaths: Record<string, string> = {
+  'Development Methodologies & Practices': 'methodologies_practices',
+  Hardware: 'hardware',
+  Software: 'software',
+  'Apps & Tools': 'apps_tools',
+  'Learning Resources': 'learning_resources',
+  'Metodologías y Prácticas de Desarrollo': 'metodologias_practicas',
+  'Aplicaciones y Herramientas': 'aplicaciones_herramientas',
+  'Recursos de Aprendizaje': 'recursos_aprendizaje',
+};
+
+const iconName =
+  categoryIcons[resource.category] || 'fluent-emoji-flat:file-folder';
+const categoryPath = categoryPaths[resource.category] || 'unknown';
+const basePath = i18n.resourceCategory.basePath;
+---
+
+<div class='mb-8'>
+  <h2 class='hidden'>{resource.category}</h2>
+  <p class='text-brand-accent-secondary mb-4 flex items-center gap-1.5'>
+    {basePath}/{categoryPath}
+    <Icon name={iconName} class='w-4 h-4' />
+  </p>
+  <div class='ml-2 space-y-4'>
+    {
+      resource.items.map((item) => (
+        <>
+          {isCourseItem(item) ? (
+            <CourseItem item={item} />
+          ) : (
+            <ResourceItem item={item} />
+          )}
+        </>
+      ))
+    }
+  </div>
+</div>

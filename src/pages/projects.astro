@@ -1,282 +1,33 @@
 ---
-import TerminalMenu from '@/components/TerminalMenu.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from '@/layouts/Layout.astro';
 import TerminalHeader from '@/components/TerminalHeader.astro';
+import TerminalMenu from '@/components/TerminalMenu.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { PROJECTS_EN } from '@/utils/constants';
+import { getI18n } from '@/utils/config';
 
-const PROJECTS = [
-  {
-    title: 'VideoStats',
-    description:
-      'A YouTube analytics platform providing creators with in-depth insights into channel performance, audience engagement, and content optimization.',
-    technologies: [
-      'Next.js',
-      'Turso',
-      'Redis',
-      'Clerk',
-      'Shadcn/ui',
-      'Chart.js',
-    ],
-    image: '/images/videostats.webp', // Local image path
-    url: 'https://videostats.vercel.app/',
-    github: null,
-    challenges: [
-      {
-        title:
-          'Efficiently handling large volumes of data from the YouTube API.',
-        solution:
-          "Implemented a two-tiered caching system using Redis for frequently accessed data and Turso (SQLite) as the primary database. This reduced calls to the YouTube API by approximately 60% and improved the application's average response time by around 45%. Additionally, I used Web Workers to process data ingestion in the background, preventing UI freezes.",
-      },
-      {
-        title: 'Implementing secure and scalable authentication.',
-        solution:
-          'Integrated Clerk for complete user lifecycle management, including registration, login, password recovery, and two-factor authentication (2FA). This not only enhanced security but also allowed me to focus on the core business logic of the application, reducing development time by roughly 20%.',
-      },
-      {
-        title: 'Intuitive and customizable data visualization.',
-        solution:
-          'Developed a series of custom visualization components using Chart.js, integrated with Shadcn/ui styles. These components allow users to visualize key metrics such as views, watch time, subscribers, and engagement, with filtering options by time period and metric type. Clarity and ease of data interpretation were prioritized.',
-      },
-      {
-        title: 'Database scalability.',
-        solution:
-          'By using Turso, the database automatically scales to handle user and data growth, ensuring consistent performance even with a large number of concurrent users.',
-      },
-    ],
-    results: [
-      'The platform is currently in beta and is used by over 50 YouTube creators to analyze their channel performance.',
-      "Users report an improved understanding of their audience and an easier time identifying content growth opportunities. Early feedback indicates that users find the platform's insights helpful in making data-driven decisions.",
-      "The application's architecture, based on Next.js and Vercel, allows for efficient horizontal scaling to handle traffic spikes and future growth.",
-    ],
-  },
-  {
-    title: 'Snapcraft',
-    description:
-      'An online media editor allowing users to customize images and videos with watermarks, text overlays, and stickers, accessible from any device.',
-    technologies: [
-      'Astro',
-      'React',
-      'Konva.js',
-      'Clerk',
-      'Shadcn/ui',
-      'ffmpeg.wasm',
-    ],
-    image: '/images/snapcraft.webp', // Local image path
-    url: 'https://snapcraft.site/',
-    github: null,
-    challenges: [
-      {
-        title:
-          'Client-side video processing to reduce server costs and improve privacy.',
-        solution:
-          "Implemented `ffmpeg.wasm`, a version of FFmpeg compiled to WebAssembly. This allows users to edit videos directly in their browsers, without needing to upload files to a server. This client-side architecture significantly reduces infrastructure costs and enhances user privacy, as video data never leaves the user's device.",
-      },
-      {
-        title: 'Creating an intuitive drag-and-drop editing interface.',
-        solution:
-          'Utilized Konva.js, a JavaScript library that provides a high-level API for manipulating graphical elements on an HTML5 canvas. Konva.js facilitated the implementation of features such as drag-and-drop, resizing, rotating, and applying styles to images, text, and stickers. A smooth and responsive user experience was a key priority.',
-      },
-      {
-        title:
-          'Cross-browser and cross-device compatibility, and performance optimization.',
-        solution:
-          'Performed extensive testing across a wide range of browsers (Chrome, Firefox, Safari, Edge) and devices (desktop, tablets, mobile) to ensure a consistent user experience. Optimized application performance using techniques such as lazy loading of images, code minification, and optimization of Konva.js operations to minimize browser resource usage.',
-      },
-      {
-        title: 'Application state management for media editing.',
-        solution:
-          'Utilized Zustand for efficient and predictable application state management. Zustand enabled centralized management of the state of editor elements (images, text, stickers, etc.), facilitating the implementation of features like undo/redo and synchronization between different parts of the interface.',
-      },
-    ],
-    results: [
-      'Snapcraft allows users to edit videos and create visual content without the need for specialized software, directly in their browser.',
-      'The client-side architecture has proven to be highly scalable and cost-effective, requiring minimal server resources.',
-      "Users consistently praise the application's ease of use and responsiveness, even on lower-powered devices. Initial user testing indicates high satisfaction with the editing tools provided.",
-    ],
-  },
-  {
-    title: 'Roast My Website',
-    description:
-      'A community-driven platform where website owners can receive constructive feedback on their design and performance.',
-    technologies: ['Astro', 'Preact', 'Tailwind CSS', 'SQLite', 'Grok AI'],
-    image: '/images/roastmyweb.webp', // Local image path
-    url: 'https://roastmyweb.site',
-    github: null,
-    challenges: [
-      {
-        title: 'Implementing a real-time feedback system.',
-        solution:
-          "Utilized Server-Sent Events (SSE) to send notifications to users in real-time when they receive new comments on their websites. SSE provides a persistent, unidirectional connection from the server to the client, making it ideal for this type of functionality. This implementation enhanced the platform's interactivity and encouraged greater user engagement.",
-      },
-      {
-        title:
-          'Integrating AI to provide automated and objective improvement suggestions.',
-        solution:
-          'Integrated the Grok AI API, a language model with web analysis capabilities. Grok AI analyzes the HTML, CSS, and JavaScript code of websites provided by users and generates suggestions for improvement in areas such as accessibility, performance, SEO, and design. This functionality adds significant value to the platform, providing instant and objective feedback.',
-      },
-      {
-        title: 'Community building and content moderation.',
-        solution:
-          'Implemented a user registration and login system using Clerk. Developed a reporting system that allows users to flag inappropriate or abusive comments. Clear community rules were established, and a moderation system was implemented to ensure a respectful and constructive environment.',
-      },
-      {
-        title: 'User Interface Design.',
-        solution:
-          'Used Tailwind CSS to create a clean, modern, and responsive user interface. Simplicity and ease of use were prioritized, allowing users to submit their websites and receive feedback quickly and intuitively.',
-      },
-    ],
-    results: [
-      'Roast My Website facilitates the review of over 150 websites, providing users with actionable feedback to improve their online presence.',
-      'The platform fosters a growing community of developers and designers who share knowledge and provide constructive criticism.',
-      'The integration of Grok AI has proven effective in identifying common design and performance issues, offering valuable insights alongside community feedback.',
-    ],
-  },
-  {
-    title: 'Expired Domain Finder',
-    description:
-      'An SEO tool to discover valuable expired domains, providing detailed analytics to identify potential opportunities.',
-    technologies: ['Astro', 'Preact', 'Turso', 'Tailwind CSS', 'Node.js'],
-    image: '/images/expireddomain.webp', // Local image path
-    url: 'https://expireddomain.site',
-    github: null,
-    challenges: [
-      {
-        title:
-          'Efficiently collecting and processing large amounts of expired domain data.',
-        solution:
-          'Developed a custom scraper in Node.js using libraries such as `axios` for making HTTP requests and `cheerio` for parsing the HTML of data sources. Implemented responsible web scraping techniques, including respecting `robots.txt` and implementing delays to avoid overloading target servers. The collected data is efficiently stored and processed using Turso (SQLite).',
-      },
-      {
-        title: 'Analyzing the quality and value of expired domains.',
-        solution:
-          'Integrated the Ahrefs and Majestic APIs to obtain key SEO metrics such as Domain Rating (DR), URL Rating (UR), number of backlinks, referring domains, and estimated organic traffic. Developed a custom scoring algorithm that combines these metrics to assess the potential value of each expired domain, enabling users to quickly identify promising opportunities.',
-      },
-      {
-        title:
-          'Presenting results in a clear and useful way, with filtering and sorting options.',
-        solution:
-          'Designed an interactive user interface with Preact and Tailwind CSS. The interface allows users to search for expired domains by keyword, filter by SEO metrics (DR, UR, backlinks, etc.), and sort the results according to different criteria. Speed and ease of use were prioritized, enabling users to efficiently find domains that meet their requirements.',
-      },
-    ],
-    results: [
-      'Expired Domain Finder provides users with a streamlined way to discover potentially valuable expired domains for SEO purposes.',
-      "The tool aggregates data from multiple sources, offering a comprehensive view of each domain's key metrics.",
-      'The user-friendly interface and filtering capabilities allow for efficient identification of relevant domains based on specific criteria.',
-    ],
-  },
-  {
-    title: 'Fly Fast',
-    description:
-      'A flight booking platform offering real-time flight data, price comparisons, and a seamless booking experience.',
-    technologies: ['Next.js', 'Tailwind CSS', 'MongoDB', 'AMADEUS API'],
-    image: '/images/flyfast.webp', // Local image path
-    url: 'https://fly-fast.vercel.app/',
-    github: null,
-    challenges: [
-      {
-        title: 'Integration with the Amadeus API for real-time flight data.',
-        solution:
-          'Utilized the official Amadeus SDK for Node.js to interact with the Amadeus API. Implemented authentication, error handling, API limit management (to avoid exceeding quotas), and conversion of API data to a consistent and easy-to-use format within the application. Robust error handling and retry mechanisms were implemented to ensure data reliability.',
-      },
-      {
-        title:
-          'Creating an efficient, responsive, and user-friendly flight search interface.',
-        solution:
-          "Utilized Next.js to build a fast and SEO-friendly user interface. Leveraged Next.js's Server-Side Rendering (SSR) and Static Site Generation (SSG) capabilities to optimize loading times and the overall user experience. The interface was designed using Tailwind CSS, with custom components for date selection (using a date picker), airport selection (with autocomplete), passenger selection, and for displaying search results (with filtering and sorting options).",
-      },
-      {
-        title:
-          'Secure payment handling and compliance with PCI DSS regulations.',
-        solution:
-          "Integrated Stripe as the payment gateway. Stripe provides a secure and easy-to-use API for processing credit and debit card payments. Utilized Stripe Elements, pre-built UI components, to ensure compliance with PCI DSS (Payment Card Industry Data Security Standard), as sensitive card data never reaches the application's servers. Implemented additional security measures, including server-side data validation and protection against Cross-Site Request Forgery (CSRF) attacks.",
-      },
-    ],
-    results: [
-      'Fly Fast offers a streamlined and intuitive flight search and booking experience.',
-      'The integration with the Amadeus API provides access to a comprehensive range of flights and fares from various airlines.',
-      'The platform adheres to industry-standard security practices for payment processing, ensuring the safety of user data.',
-    ],
-  },
-];
+const i18n = getI18n(Astro.currentLocale);
 ---
 
 <Layout>
   <div
-    class='bg-slate-700 dark:bg-black text-white dark:text-gray-100 p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-lg'
+    class='bg-brand-surface text-brand-text-primary p-4 sm:p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-md'
   >
-    <h1 class='hidden'>Projects - Pedro Sorrentino</h1>
+    <h1 class='hidden'>{i18n.pageTitles.projectsHidden}</h1>
 
-    <TerminalHeader title='Stuff I’ve Built with Love ❤️' />
+    <TerminalHeader title={i18n.pageTitles.projects} />
 
     <div class='mt-4 space-y-8'>
-      <p class='text-green-400 dark:text-rose-400'>$ cat projects.txt</p>
+      <p class='text-brand-accent-secondary'>{i18n.catCommands.projects}</p>
 
       {
-        PROJECTS.map((project) => (
-          <div class='mb-16'>
-            <div class='flex items-center justify-between flex-col sm:flex-row'>
-              <div class='sm:w-2/3'>
-                <h2 class='text-2xl dark:text-gray-200 font-bold'>
-                  {project.title}
-                </h2>
-                <p class='text-blue-400 dark:text-purple-300'>
-                  ~/projects/{project.title.toLowerCase().replace(/ /g, '_')}:
-                </p>
-                <p class='text-slate-300 dark:text-gray-300 ml-4'>
-                  {project.description}
-                </p>
-                <p class='text-slate-300 dark:text-gray-300 ml-4'>
-                  <span class='text-blue-400 dark:text-purple-300'>
-                    Technologies:
-                  </span>{' '}
-                  {project.technologies.join(', ')}
-                </p>
-                <p class='text-slate-300 dark:text-gray-300 ml-4'>
-                  <span class='text-blue-400 dark:text-purple-300'>URL:</span>{' '}
-                  <a
-                    href={project.url}
-                    class='text-lime-400 dark:text-amber-400 hover:underline transition-colors duration-200'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    {project.url}
-                  </a>
-                </p>
-              </div>
-
-              <div class='sm:w-1/3 sm:pl-8'>
-                <img
-                  src={project.image}
-                  alt={`Screenshot of ${project.title}`}
-                  class='w-full rounded-md border border-gray-600'
-                />
-              </div>
-            </div>
-
-            <div class='mt-4 ml-4'>
-              <h3 class='text-blue-400 dark:text-purple-300'>
-                ~/project/challenges:
-              </h3>
-              <ul class='list-disc list-inside  text-slate-300 dark:text-gray-300'>
-                {project.challenges.map((challenge) => (
-                  <li>
-                    <span class='font-bold'>Challenge:</span> {challenge.title}
-                    <br />
-                    <span class='font-bold'>Solution:</span>{' '}
-                    {challenge.solution}
-                  </li>
-                ))}
-              </ul>
-
-              <h3 class='text-blue-400 dark:text-purple-300'>
-                ~/project/results:
-              </h3>
-              <ul class='list-disc list-inside text-slate-300 dark:text-gray-300'>
-                {project.results.map((result) => (
-                  <li>{result}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        PROJECTS_EN.map((project, index) => (
+          <>
+            <ProjectCard project={project} />
+            {index < PROJECTS_EN.length - 1 && (
+              <hr class='border-brand-border my-12' />
+            )}
+          </>
         ))
       }
 

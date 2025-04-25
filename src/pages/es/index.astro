@@ -1,102 +1,161 @@
 ---
-import TerminalHeader from '@/components/TerminalHeader.astro'; // Encabezado de Terminal
-import TerminalMenu from '@/components/TerminalMenu.astro'; // Menú de Terminal
 import Layout from '@/layouts/Layout.astro';
+import TerminalHeader from '@/components/TerminalHeader.astro';
+import TerminalMenu from '@/components/TerminalMenu.astro';
+import { Icon } from 'astro-icon/components';
+import { getI18n } from '@/utils/config';
+import { marked } from 'marked';
+
+const i18n = getI18n(Astro.currentLocale);
+
+const skills = {
+  Lenguajes:
+    'JavaScript (ES6+ Experto), TypeScript (Avanzado), HTML5 (Experto), CSS3 (Avanzado), Node.js (Experto), Python (Intermedio), Rust (Aprendiendo)',
+  'Frameworks y Librerías':
+    'React (Experto), Next.js (Experto), Astro (Experto), Zustand (Intermedio), Vue.js (Básico), Tailwind CSS (Experto)',
+  'Bases de Datos':
+    'MongoDB (Avanzado), Turso (SQLite - Avanzado), MySQL (Avanzado), PostgreSQL (Intermedio), Redis (Intermedio), Firebase (Intermedio)',
+  'Herramientas y Tecnologías':
+    'Git, GitHub, GitLab, Docker, Google Cloud Platform, Vercel, Netlify, Heroku, ESLint, Prettier, npm, yarn, pnpm, REST APIs, Lighthouse, Google PageSpeed Insights',
+};
+
+const achievements = [
+  'Fundé y lideré OrdepDev como desarrollador full-stack freelance desde 2010, gestionando proyectos y liderando pequeños equipos (1-5 personas) para entregar soluciones web personalizadas para clientes.',
+  'Mantuve y supervisé sistemas informáticos y electrónicos críticos para el control y seguridad de túneles en UTE Alta Capacidad Gran Canaria (2004 - 2024), garantizando la fiabilidad operativa en entornos técnicos complejos.',
+  'Desarrollé temas y plugins personalizados de WordPress para Publi Media 7 (2002-2004), creando soluciones web a medida para clientes.',
+  'Desarrollé APIs RESTful con Node.js y MySQL, asegurando escalabilidad, seguridad y eficiencia, durante mi tiempo en AD Computers (2011-2012).',
+];
+
+const ctaHtml = await marked.parse(i18n.indexPage.ctaText);
 ---
 
 <Layout>
   <div
-    class='bg-slate-700 dark:bg-black text-white dark:text-gray-100 p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-lg'
+    class='bg-brand-surface text-brand-text-primary p-4 sm:p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-md'
   >
-    <h1 class='hidden'>
-      Pedro Sorrentino - Desarrollador Full Stack | JavaScript, TypeScript,
-      React, Next.js, Astro
-    </h1>
+    <h1 class='hidden'>{i18n.pageTitles.indexHidden}</h1>
 
-    <TerminalHeader title=`¡Hola Mundo! Soy Pedro` />
+    <TerminalHeader title={i18n.pageTitles.index} />
 
-    <div class='my-4 space-y-2'>
-      <p class='text-green-400 dark:text-rose-400'>$ cat acerca-de.txt</p>
-
-      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/nombre:</p>
-      <p class='text-slate-300 dark:text-gray-300 ml-4'>Pedro Sorrentino</p>
-
-      <h2 class='hidden'>Rol</h2>
-      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/rol:</p>
-      <p class='text-slate-300 dark:text-gray-300 ml-4'>
-        Desarrollador Full Stack | JavaScript, TypeScript, React, Next.js, Astro
-      </p>
-
-      <h2 class='hidden'>Habilidades</h2>
-      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/habilidades:</p>
-      <p class='text-slate-300 dark:text-gray-300 ml-4'>
-        <span class='font-bold'>Lenguajes:</span> JavaScript (ES6+ - Experto), TypeScript
-        (Avanzado), HTML5 (Experto), CSS3 (Avanzado), Node.js (Experto), Python (Intermedio),
-        Rust (Aprendiendo)
-        <br />
-        <span class='font-bold'>Frameworks y Librerías:</span> React (Experto), Next.js
-        (Experto), Astro (Experto), Zustand (Intermedio), Vue.js (Básico), Tailwind
-        CSS (Experto), Shadcn/ui
-        <br />
-        <span class='font-bold'>Bases de Datos:</span> MongoDB (Avanzado), Turso
-        (SQLite - Avanzado), MySQL (Avanzado), PostgreSQL (Intermedio), Redis (Intermedio),
-        Firebase (Intermedio)
-        <br />
-        <span class='font-bold'>Herramientas y Tecnologías:</span> Git, GitHub, GitLab,
-        Docker, Google Cloud Platform, Vercel, Netlify, Heroku, ESLint, Prettier,
-        npm, yarn, pnpm, REST APIs, Lighthouse, Google PageSpeed Insights
-        <br />
-        <span class='font-bold'>Metodologías:</span> Agile (Básico), Optimización
-        del Rendimiento Web
-      </p>
-
-      <h2 class='hidden'>Logros Clave</h2>
-      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/logros:</p>
-      <ul class='list-none list-inside ml-4 text-slate-300 dark:text-gray-300'>
-        <li>
-          <span class='text-green-400 dark:text-rose-400'>✔</span> Fundé y lideré
-          OrdepDev como desarrollador full-stack freelance desde 2010, gestionando
-          proyectos y liderando pequeños equipos (1-5 personas) para entregar soluciones
-          web personalizadas para clientes.
-        </li>
-        <li>
-          <span class='text-green-400 dark:text-rose-400'>✔</span> Desarrollé temas
-          y plugins personalizados de WordPress para Publi Media 7 (2002-2004), creando
-          soluciones web a medida para clientes.
-        </li>
-        <li>
-          <span class='text-green-400 dark:text-rose-400'>✔</span> Desarrollé APIs
-          RESTful con Node.js y MySQL, asegurando escalabilidad, seguridad y eficiencia,
-          durante mi tiempo en AD Computers (2011-2012).
-        </li>
-      </ul>
-
-      <h2 class='hidden'>Acerca de mí</h2>
-      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/mi:</p>
-      <p class='text-slate-300 dark:text-gray-300 ml-4'>
-        Soy un desarrollador full-stack autodidacta con más de 14 años de
-        experiencia construyendo aplicaciones web, principalmente usando
-        JavaScript y su ecosistema. Me apasiona crear soluciones eficientes,
-        fáciles de usar y escalables. Tengo un sólido historial liderando
-        proyectos desde el concepto hasta el lanzamiento, tanto de forma
-        independiente como parte de pequeños equipos. Soy competente tanto en el
-        desarrollo front-end como back-end, con experiencia en React, Next.js y
-        Astro. También soy un viajero ávido y disfruto explorando nuevas
-        tecnologías y contribuyendo a la comunidad de código abierto.
-      </p>
-
-      <h2 class='hidden'>Llamada a la acción</h2>
-      <p class='text-blue-400 dark:text-purple-300'>~/acerca-de/cta:</p>
-      <p class='text-slate-300 dark:text-gray-300 ml-4'>
-        Actualmente busco colaborar en proyectos remotos a tiempo completo donde
-        pueda aplicar mi experiencia en JavaScript, React, Next.js y Astro para
-        crear soluciones web innovadoras que generen impacto real. Me entusiasma
-        la idea de formar parte de un equipo colaborativo con buen ambiente de
-        trabajo y enfoque en resultados. Si buscas un desarrollador apasionado
-        por la calidad y los resultados, ¡Contáctame!
-      </p>
-
-      <TerminalMenu />
+    <div class='mt-6 mb-4'>
+      <p class='text-brand-accent-secondary'>{i18n.catCommands.index}</p>
     </div>
+
+    <div class='space-y-8 font-sans'>
+      <section
+        aria-labelledby='role-title'
+        class='p-4 border border-brand-border rounded-md bg-brand-background'
+      >
+        <h2
+          id='role-title'
+          class='text-xl font-semibold text-brand-accent-primary mb-2 flex items-center gap-2'
+        >
+          <Icon name='fluent-emoji-flat:man-technologist' class='w-5 h-5' />
+          {i18n.indexPage.roleTitle}
+        </h2>
+        <p class='text-brand-text-secondary ml-1 text-base'>
+          <span class='font-medium text-brand-text-primary'
+            >{i18n.indexPage.roleDesc1}</span
+          > |
+          <span class='font-medium text-brand-text-primary'>
+            {i18n.indexPage.roleDesc2}</span
+          >
+        </p>
+      </section>
+
+      <section
+        aria-labelledby='skills-title'
+        class='p-4 border border-brand-border rounded-md bg-brand-background'
+      >
+        <h2
+          id='skills-title'
+          class='text-xl font-semibold text-brand-accent-primary mb-3 flex items-center gap-2'
+        >
+          <Icon name='fluent-emoji-flat:light-bulb' class='w-5 h-5' />
+          {i18n.indexPage.skillsTitle}
+        </h2>
+        <div class='space-y-3'>
+          {
+            Object.entries(skills).map(([category, list]) => (
+              <div>
+                <h3 class='font-medium text-base text-brand-text-secondary mb-1.5'>
+                  {category}:
+                </h3>
+                <div class='flex flex-wrap gap-1.5'>
+                  {list.split(', ').map((skill) => (
+                    <span class='text-sm font-medium px-2.5 py-0.5 rounded-full bg-brand-tag-bg text-brand-tag-text'>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section
+        aria-labelledby='achievements-title'
+        class='p-4 border border-brand-border rounded-md bg-brand-background'
+      >
+        <h2
+          id='achievements-title'
+          class='text-xl font-semibold text-brand-accent-primary mb-3 flex items-center gap-2'
+        >
+          <Icon name='fluent-emoji-flat:trophy' class='w-5 h-5' />
+          {i18n.indexPage.achievementsTitle}
+        </h2>
+        <ul class='list-none space-y-2.5'>
+          {
+            achievements.map((item) => (
+              <li class='flex items-start gap-2'>
+                <Icon
+                  name='fluent-emoji-flat:check-mark-button'
+                  class='w-4 h-4 text-brand-success mt-1 flex-shrink-0'
+                />
+                <span class='text-brand-text-secondary text-base leading-relaxed'>
+                  {item}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section
+        aria-labelledby='about-title'
+        class='p-4 border border-brand-border rounded-md bg-brand-background'
+      >
+        <h2
+          id='about-title'
+          class='text-xl font-semibold text-brand-accent-primary mb-2 flex items-center gap-2'
+        >
+          <Icon name='fluent-emoji-flat:identification-card' class='w-5 h-5' />
+          {i18n.indexPage.aboutTitle}
+        </h2>
+        <p class='text-brand-text-secondary text-base leading-relaxed'>
+          {i18n.indexPage.aboutText}
+        </p>
+      </section>
+
+      <section
+        aria-labelledby='cta-title'
+        class='p-4 border border-brand-info rounded-md bg-brand-info-bg'
+      >
+        <h2
+          id='cta-title'
+          class='text-xl font-semibold text-brand-info mb-2 flex items-center gap-2'
+        >
+          <Icon name='fluent-emoji-flat:rocket' class='w-5 h-5' />
+          {i18n.indexPage.ctaTitle}
+        </h2>
+        <div
+          class='text-brand-info-fg text-base leading-relaxed prose prose-strong:text-brand-info-fg'
+          set:html={ctaHtml}
+        />
+      </section>
+    </div>
+
+    <TerminalMenu />
   </div>
 </Layout>

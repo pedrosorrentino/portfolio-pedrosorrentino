@@ -1,0 +1,37 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { CourseItem as CourseItemType } from '@/utils/types';
+import { getI18n } from '@/utils/config';
+
+interface Props {
+  item: CourseItemType;
+}
+
+const { item } = Astro.props;
+const i18n = getI18n(Astro.currentLocale);
+---
+
+<div
+  class='flex items-start gap-3 border-l-2 border-brand-border-accent pl-4 pr-2 py-2.5 bg-brand-code-bg/40 rounded-r shadow-sm'
+>
+  <Icon
+    name='fluent-emoji-flat:scroll'
+    class='w-4 h-4 mt-1 flex-shrink-0 text-brand-accent-primary'
+  />
+  <div class='flex-1'>
+    <p class='font-semibold text-brand-accent-primary mb-1'>
+      {item.title} ({item.platform} - {item.instructor}, {item.year})
+    </p>
+    <p class='text-sm text-brand-text-secondary mb-1.5'>
+      {item.summary}
+    </p>
+    <p class='text-xs'>
+      <span class='font-medium text-brand-warning'>
+        {i18n.courseItem.skills}:
+      </span>
+      <span class='text-brand-text-muted'>
+        {item.skills.join(' · ')}
+      </span>
+    </p>
+  </div>
+</div>

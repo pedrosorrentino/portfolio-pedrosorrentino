@@ -1,198 +1,26 @@
 ---
-import TerminalMenu from '@/components/TerminalMenu.astro';
-import TerminalHeader from '@/components/TerminalHeader.astro';
 import Layout from '@/layouts/Layout.astro';
+import TerminalHeader from '@/components/TerminalHeader.astro';
+import TerminalMenu from '@/components/TerminalMenu.astro';
+import ResourceCategory from '@/components/ResourceCategory.astro';
+import { RESOURCES_ES } from '@/utils/constants';
+import { getI18n } from '@/utils/config';
 
-interface ResourceItem {
-  name: string;
-  description?: string;
-  url?: string;
-  why?: string;
-}
-
-interface ResourceCategory {
-  category: string;
-  items: ResourceItem[];
-}
-
-export const RESOURCES: ResourceCategory[] = [
-  {
-    category: 'Metodologías y Prácticas de Desarrollo',
-    items: [
-      {
-        name: 'Desarrollo Ágil',
-        description: 'Utilizando metodologías Scrum',
-        why: 'para una gestión de proyectos iterativa y flexible.',
-      },
-      {
-        name: 'Optimización del Rendimiento Web',
-        description:
-          'Técnicas como carga diferida, división de código y optimización de imágenes.',
-        why: 'para garantizar tiempos de carga rápidos y una experiencia de usuario fluida.',
-      },
-      {
-        name: 'Revisiones de Código',
-        description:
-          'Proceso colaborativo de revisión de código utilizando pull requests de GitHub.',
-        why: 'para mejorar la calidad del código y compartir conocimientos.',
-      },
-      {
-        name: 'Control de Versiones',
-        description: 'Git',
-        url: 'https://git-scm.com/',
-        why: 'para seguimiento de cambios y gestión de la colaboración.',
-      },
-    ],
-  },
-  {
-    category: 'Hardware',
-    items: [
-      {
-        name: 'Portátil',
-        description: 'MSI M16 Creator (Intel i7, 64GB RAM, 1TB SSD)',
-      },
-      {
-        name: 'Monitor',
-        description:
-          '¡Varios televisores de hotel (trabajo remotamente desde cualquier lugar!)',
-      },
-      {
-        name: 'Ratón',
-        description: 'Un confiable ratón chino con 2 botones adicionales',
-      },
-    ],
-  },
-  {
-    category: 'Software',
-    items: [
-      {
-        name: 'Editor de Código',
-        description: 'Visual Studio Code',
-        url: 'https://code.visualstudio.com/',
-        why: 'con extensiones como Prettier, ESLint y GitLens para mejorar la productividad.',
-      },
-      {
-        name: 'Terminal',
-        description: 'Terminal integrada en Ubuntu',
-      },
-      {
-        name: 'Navegador',
-        description: 'Brave',
-        url: 'https://brave.com/',
-        why: 'por sus funciones de privacidad y bloqueador de anuncios integrado.',
-      },
-      {
-        name: 'Herramienta de Diseño',
-        description: 'Photoshop',
-        url: 'https://www.adobe.com/products/photoshop.html',
-      },
-    ],
-  },
-  {
-    category: 'Aplicaciones y Herramientas',
-    items: [
-      {
-        name: 'Gestión de Proyectos',
-        description: 'Google Sheets',
-        url: 'https://www.google.com/sheets/about/',
-        why: 'para un seguimiento de tareas y colaboración simple y efectiva.',
-      },
-      {
-        name: 'Comunicación',
-        description: 'Telegram y Slack',
-        url: 'https://slack.com/',
-      },
-      {
-        name: 'Control de Versiones',
-        description: 'Git y GitHub',
-        url: 'https://github.com/',
-        why: 'para control de versiones y colaboración.',
-      },
-      {
-        name: 'Pruebas de API',
-        description: 'Thunder Client',
-        url: 'https://www.thunderclient.com/',
-        why: 'para pruebas y depuración rápidas de API.',
-      },
-    ],
-  },
-  {
-    category: 'Recursos de Aprendizaje',
-    items: [
-      {
-        name: 'Cursos en Línea',
-        description:
-          'Desarrollo Avanzado de React en Udemy, Bootcamp de JavaScript Full-Stack en Devtalles',
-      },
-      {
-        name: 'Libros',
-        description: '"Clean Code" de Robert C. Martin',
-        url: 'https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882',
-        why: 'un libro fundamental sobre cómo escribir código mantenible.',
-      },
-      {
-        name: 'Libros',
-        description: '"JavaScript: The Definitive Guide" de O\'Reilly',
-        url: 'https://www.oreilly.com/library/view/javascript-the-definitive/9781449393854/',
-      },
-      {
-        name: 'Agradecimientos Especiales',
-        description:
-          'A mis grandes maestros Fernando Herrera y Miguel Ángel Durán',
-      },
-    ],
-  },
-];
+const i18n = getI18n(Astro.currentLocale);
 ---
 
 <Layout>
   <div
-    class='bg-slate-700 dark:bg-black text-white dark:text-gray-100 p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-lg'
+    class='bg-brand-surface text-brand-text-primary p-4 sm:p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-md'
   >
-    <h1 class='hidden'>Recursos que utilizo</h1>
+    <h1 class='hidden'>{i18n.pageTitles.resourcesHidden}</h1>
 
-    <TerminalHeader title='Herramientas y recursos que me encantan' />
+    <TerminalHeader title={i18n.pageTitles.resources} />
 
     <div class='mt-4 space-y-8'>
-      <p class='text-green-400 dark:text-rose-400'>$ cat recursos.txt</p>
+      <p class='text-brand-accent-secondary'>{i18n.catCommands.resources}</p>
 
-      {
-        RESOURCES.map((resource) => (
-          <div class='mb-6'>
-            <h2 class='hidden'>{resource.category}</h2>{' '}
-            <p class='text-blue-400 dark:text-lime-300'>
-              ~/recursos/{resource.category.toLowerCase().replace(/ /g, '_')}:{' '}
-            </p>
-            {resource.items.map((item) => (
-              <div class='ml-4'>
-                <p class='text-slate-300 dark:text-gray-200'>
-                  <span class='text-green-400 dark:text-lime-300'>✔</span>
-                  {item.url ? (
-                    <a
-                      href={item.url}
-                      class='text-blue-400 dark:text-lime-300 hover:underline'
-                      target='_blank'
-                      rel='noopener noreferrer'
-                    >
-                      {item.name}
-                    </a>
-                  ) : (
-                    item.name
-                  )}
-                  {item.description ? `: ${item.description}` : ''}{' '}
-                  {item.why ? (
-                    <span class='text-gray-400 dark:text-gray-500'>
-                      ({item.why})
-                    </span>
-                  ) : (
-                    ''
-                  )}
-                </p>
-              </div>
-            ))}
-          </div>
-        ))
-      }
+      {RESOURCES_ES.map((resource) => <ResourceCategory resource={resource} />)}
 
       <TerminalMenu />
     </div>

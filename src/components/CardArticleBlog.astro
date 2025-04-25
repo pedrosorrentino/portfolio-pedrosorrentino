@@ -1,4 +1,6 @@
 ---
+import { getI18n } from '@/utils/config';
+
 interface Props {
   article: {
     title: string;
@@ -7,23 +9,27 @@ interface Props {
   };
 }
 const { article } = Astro.props;
+const i18n = getI18n(Astro.currentLocale);
 ---
 
 <div class='mb-4'>
-  <p class='text-blue-400 dark:text-lime-300'>
+  <p class='text-brand-accent-secondary'>
     ~/docs/{article.title.toLowerCase().replace(/ /g, '_')}:
   </p>
 
-  <p class='text-slate-300 dark:text-gray-100 ml-4'>
-    <span class='text-blue-400 dark:text-lime-300'>Created:</span>
+  <p class='text-brand-text-secondary ml-4'>
+    <span class='text-brand-accent-secondary'
+      >{i18n.cardArticleBlog.created}:</span
+    >
     {article.createdDate}
   </p>
 
-  <p class='text-slate-300 dark:text-gray-100 ml-4'>
-    <span class='text-blue-400 dark:text-lime-300'>URL:</span>{' '}
+  <p class='text-brand-text-secondary ml-4'>
+    <span class='text-brand-accent-secondary'>{i18n.cardArticleBlog.url}:</span
+    >{' '}
     <a
       href={article.url}
-      class='text-blue-400 dark:text-lime-300 hover:underline'
+      class='text-brand-accent-secondary hover:underline'
       target='_blank'
       rel='noopener noreferrer'
     >

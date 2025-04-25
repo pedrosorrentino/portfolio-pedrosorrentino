@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Pedro Sorrentino | JavaScript Developer & Modern Web Frameworks Expert",
-    "description": "I’m a JavaScript developer specializing in Next.js and Astro. I build fast, scalable web apps and optimize performance for impactful results. Let’s work together and bring your vision to life with cutting-edge tech! 🚀",
+    "title": "Pedro Sorrentino | JavaScript Developer & IT Specialist",
+    "description": "14+ years as an JavaScript Developer & IT Specialist. I create high-performance, scalable web applications using Next.js, Astro, and React, leveraging deep IT knowledge for robust solutions. Discover my work and projects.",
     "text1": "Explore my work",
     "text2": "Visit my GitHub profile",
     "downloadcv": "Download CV",
@@ -10,35 +10,99 @@
     "formEmail": "Email",
     "formMessage": "Message",
     "formSubmit": "Submit",
-    "formSuccess": "Thank you for your message! I will get back to you as soon as possible."
+    "formSuccess": "Message sent successfully!",
+    "formErrorName": "Please enter your name.",
+    "formErrorEmail": "Please enter a valid email address.",
+    "formErrorMessage": "Please enter your message.",
+    "formErrorSubmit": "Please correct the errors above.",
+    "formSending": "Sending...",
+    "formErrorServer": "Oops! Something went wrong submitting the form. Please try again later.",
+    "formErrorNetwork": "Oops! Network error. Please check your connection and try again."
   },
-
   "menu": [
-    {
-      "title": "~/about",
-      "url": "/",
-      "description": "About me"
-    },
+    { "title": "~/about", "url": "/", "description": "About me" },
     {
       "title": "~/projects",
       "url": "/projects",
       "description": "Projects I've worked on"
     },
-
     {
       "title": "~/resources",
       "url": "/resources",
       "description": "Resources I've used"
     },
-    {
-      "title": "~/docs",
-      "url": "/docs",
-      "description": "My last blog posts"
-    },
-    {
-      "title": "~/contact",
-      "url": "/contact",
-      "description": "Contact me"
-    }
-  ]
+    { "title": "~/blog", "url": "/blog", "description": "My last blog posts" },
+    { "title": "~/contact", "url": "/contact", "description": "Contact me" }
+  ],
+  "pageTitles": {
+    "index": "Hello World! I'm Pedro Sorrentino",
+    "projects": "Stuff I’ve Built with Love ❤️",
+    "resources": "Tools & Resources I Love",
+    "blog": "Latest Blog Posts",
+    "contact": "Contact Me",
+    "indexHidden": "Pedro Sorrentino - Expert JavaScript & TypeScript Developer | Computer Science Specialist",
+    "projectsHidden": "Projects - Pedro Sorrentino",
+    "resourcesHidden": "Resources I Use",
+    "blogHidden": "Latest Blog Posts",
+    "contactHidden": "Contact Pedro Sorrentino"
+  },
+  "catCommands": {
+    "index": "$ cat about_me.txt",
+    "projects": "$ cat projects.txt",
+    "resources": "$ cat resources.txt",
+    "blog": "$ cat blog.txt",
+    "contact": "$ cat contact.txt"
+  },
+  "indexPage": {
+    "roleTitle": "Role",
+    "roleDesc1": "Expert JavaScript & TypeScript Developer",
+    "roleDesc2": "Computer Science Specialist",
+    "skillsTitle": "Skills",
+    "achievementsTitle": "Key Achievements",
+    "aboutTitle": "About Me",
+    "aboutText": "With over 14 years in the tech world, my journey started with a solid foundation in computer science and IT systems, evolving into a dedicated full-stack developer focused on the JavaScript ecosystem. I'm passionate about building performant, user-friendly, and scalable web solutions using modern tools like React, Next.js, and Astro. I thrive on bringing ideas to life and have a strong track record leading projects from concept to launch, both independently and within collaborative teams. Beyond coding, I'm always exploring emerging technologies and enjoy traveling.",
+    "ctaTitle": "Let's Connect!",
+    "ctaText": "Seeking impactful full-time remote opportunities as a **Programmer** or **IT & Technology Specialist**. I bring extensive experience, strong problem-solving skills, and expertise in modern technologies (incl. JavaScript, React, Next.js, Astro). Eager to contribute to innovative solutions within a productive and friendly team."
+  },
+  "contactPage": {
+    "intro": "Fill out the form below to send me a message. I'll get back to you as soon as possible!"
+  },
+  "footer": {
+    "totalLoadTime": "Total load time"
+  },
+  "languagePicker": {
+    "intro": "This portfolio is available in:"
+  },
+  "cardArticleBlog": {
+    "created": "Created",
+    "url": "URL"
+  },
+  "noArticlesBlog": {
+    "oops": "Oops!",
+    "cooking": "It looks like I'm still cooking up some fresh content. 🍳",
+    "checkBack": "Check back soon for awesome articles on web development, performance, and more!",
+    "explore": "In the meantime, why not explore my",
+    "portfolioLink": "portfolio"
+  },
+  "courseItem": {
+    "skills": "Skills"
+  },
+  "projectCard": {
+    "technologies": "Technologies",
+    "url": "URL",
+    "challengesPath": "~/project/challenges",
+    "resultsPath": "~/project/results",
+    "imageAlt": "Screenshot of {title}"
+  },
+  "resourceItem": {
+    "why": "Why",
+    "linkTitle": "Link to reference"
+  },
+  "resourceCategory": {
+    "basePath": "~/resources"
+  },
+  "terminalMenu": {
+    "githubTitle": "GitHub",
+    "githubDesc": "Visit my GitHub profile"
+  }
 }

@@ -2,102 +2,205 @@
 import { getI18n } from '@/utils/config';
 const i18n = getI18n(Astro.currentLocale);
 const formspreeEndpoint = 'https://formspree.io/f/mnnjeekb';
+
+const fieldClasses =
+  'mt-1 block w-full px-3 py-2 bg-brand-surface border border-brand-border rounded-md shadow-sm focus:outline-none focus:ring-brand-accent-primary focus:border-brand-accent-primary text-brand-text-primary';
+const labelClasses = 'block text-sm font-medium text-brand-text-secondary';
+const errorClasses = 'text-brand-error text-xs mt-1 hidden';
+
+const clientTranslations = {
+  formErrorName: i18n.meta.formErrorName,
+  formErrorEmail: i18n.meta.formErrorEmail,
+  formErrorMessage: i18n.meta.formErrorMessage,
+  formErrorSubmit: i18n.meta.formErrorSubmit,
+  formSending: i18n.meta.formSending,
+  formSuccess: i18n.meta.formSuccess,
+  formErrorServer: i18n.meta.formErrorServer,
+  formErrorNetwork: i18n.meta.formErrorNetwork,
+};
 ---
 
-<form id='contact-form' class='space-y-4'>
+<form id='contact-form' class='space-y-4' novalidate>
   <div>
-    <label
-      for='name'
-      class='block text-sm font-medium text-gray-300 dark:text-gray-200'
-      >{i18n.meta.formName}:</label
-    >
+    <label for='name' class={labelClasses}>{i18n.meta.formName}:</label>
     <input
       type='text'
       id='name'
       name='name'
       required
-      class='mt-1 block w-full px-3 py-2 bg-slate-700 dark:bg-gray-800 border border-gray-600 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-gray-300 dark:text-gray-200'
+      class={fieldClasses}
+      aria-describedby='name-error'
     />
+    <p id='name-error' class={errorClasses}>
+      {i18n.meta.formErrorName}
+    </p>
   </div>
   <div>
-    <label
-      for='email'
-      class='block text-sm font-medium text-gray-300 dark:text-gray-200'
-      >{i18n.meta.formEmail}:</label
-    >
+    <label for='email' class={labelClasses}>{i18n.meta.formEmail}:</label>
     <input
       type='email'
       id='email'
       name='email'
       required
-      class='mt-1 block w-full px-3 py-2 bg-slate-700 dark:bg-gray-800 border border-gray-600 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-gray-300 dark:text-gray-200'
+      class={fieldClasses}
+      aria-describedby='email-error'
     />
+    <p id='email-error' class={errorClasses}>
+      {i18n.meta.formErrorEmail}
+    </p>
   </div>
   <div>
-    <label
-      for='message'
-      class='block text-sm font-medium text-gray-300 dark:text-gray-200'
-      >{i18n.meta.formMessage}:</label
-    >
+    <label for='message' class={labelClasses}>{i18n.meta.formMessage}:</label>
     <textarea
       id='message'
       name='message'
       required
       rows='4'
-      class='mt-1 block w-full px-3 py-2 bg-slate-700 dark:bg-gray-800 border border-gray-600 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-gray-300 dark:text-gray-200'
-    ></textarea>
+      class={fieldClasses}
+      aria-describedby='message-error'></textarea>
+    <p id='message-error' class={errorClasses}>
+      {i18n.meta.formErrorMessage}
+    </p>
   </div>
   <div>
     <button
       type='submit'
-      class='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+      id='submit-button'
+      class='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-brand-interactive-fg bg-brand-interactive hover:bg-brand-interactive-state focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent-primary disabled:opacity-50 disabled:cursor-not-allowed'
     >
       {i18n.meta.formSubmit}
     </button>
   </div>
 </form>
 
-<div id='form-message' class='hidden p-4 rounded-md mt-4'></div>
+<div id='form-message' class='hidden p-4 rounded-md mt-4 text-sm'></div>
 
-<script define:vars={{ formspreeEndpoint }}>
+<script
+  is:inline
+  define:vars={{ formspreeEndpoint, translations: clientTranslations }}
+>
   const form = document.getElementById('contact-form');
   const formMessage = document.getElementById('form-message');
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const messageInput = document.getElementById('message');
+  const submitButton = document.getElementById('submit-button');
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+  if (
+    !form ||
+    !formMessage ||
+    !submitButton ||
+    !nameInput ||
+    !emailInput ||
+    !messageInput
+  ) {
+    if (submitButton) submitButton.disabled = true;
+  } else {
+    const fields = [
+      {
+        input: nameInput,
+        errorId: 'name-error',
+        required: true,
+        errorMsg: translations.formErrorName,
+      },
+      {
+        input: emailInput,
+        errorId: 'email-error',
+        required: true,
+        isEmail: true,
+        errorMsg: translations.formErrorEmail,
+      },
+      {
+        input: messageInput,
+        errorId: 'message-error',
+        required: true,
+        errorMsg: translations.formErrorMessage,
+      },
+    ];
 
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch(formspreeEndpoint, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Accept: 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        form.reset();
-        formMessage.classList.remove('hidden', 'bg-red-500', 'text-red-100');
-        formMessage.classList.add('bg-green-500', 'text-green-100');
-        formMessage.textContent = 'Message sent successfully!';
-      } else {
-        formMessage.classList.remove(
-          'hidden',
-          'bg-green-500',
-          'text-green-100'
-        );
-        formMessage.classList.add('bg-red-500', 'text-red-100');
-        formMessage.textContent =
-          'Oops! Something went wrong. Please try again later.';
+    const validateField = (field) => {
+      const errorElement = document.getElementById(field.errorId);
+      if (!errorElement || !field.input) return true;
+      let isValid = true;
+      const value = field.input.value;
+      if (field.required && !value.trim()) {
+        isValid = false;
+      } else if (field.isEmail) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          isValid = false;
+        }
       }
-    } catch (error) {
-      formMessage.classList.remove('hidden', 'bg-green-500', 'text-green-100');
-      formMessage.classList.add('bg-red-500', 'text-red-100');
-      formMessage.textContent =
-        'Oops! Something went wrong. Please try again later.';
-    }
-    formMessage.classList.remove('hidden'); // Show the message div
-  });
+      errorElement.textContent = field.errorMsg;
+      errorElement.classList.toggle('hidden', isValid);
+      field.input.setAttribute('aria-invalid', String(!isValid));
+      return isValid;
+    };
+
+    const validateForm = () => fields.every((field) => validateField(field));
+
+    fields.forEach((field) => {
+      if (field.input) {
+        field.input.addEventListener('input', () => validateField(field));
+        field.input.addEventListener('blur', () => validateField(field));
+      }
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const isFormValid = validateForm();
+
+      if (!isFormValid) {
+        formMessage.textContent = translations.formErrorSubmit;
+        formMessage.className =
+          'p-4 rounded-md mt-4 text-sm bg-brand-warning-bg text-brand-warning-fg';
+        formMessage.classList.remove('hidden');
+        const firstInvalidField = fields.find(
+          (f) => f.input && f.input.getAttribute('aria-invalid') === 'true'
+        );
+        if (firstInvalidField && firstInvalidField.input) {
+          firstInvalidField.input.focus();
+        }
+        return;
+      }
+
+      submitButton.disabled = true;
+      formMessage.textContent = translations.formSending;
+      formMessage.className =
+        'p-4 rounded-md mt-4 text-sm bg-brand-info-bg text-brand-info-fg';
+      formMessage.classList.remove('hidden');
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(formspreeEndpoint, {
+          method: 'POST',
+          body: formData,
+          headers: { Accept: 'application/json' },
+        });
+        if (response.ok) {
+          form.reset();
+          fields.forEach((field) => {
+            const errorElement = document.getElementById(field.errorId);
+            if (errorElement) errorElement.classList.add('hidden');
+            if (field.input) field.input.removeAttribute('aria-invalid');
+          });
+          formMessage.className =
+            'p-4 rounded-md mt-4 text-sm bg-brand-success-bg text-brand-success-fg';
+          formMessage.textContent = translations.formSuccess;
+        } else {
+          formMessage.className =
+            'p-4 rounded-md mt-4 text-sm bg-brand-error-bg text-brand-error-fg';
+          formMessage.textContent = translations.formErrorServer;
+        }
+      } catch (error) {
+        formMessage.className =
+          'p-4 rounded-md mt-4 text-sm bg-brand-error-bg text-brand-error-fg';
+        formMessage.textContent = translations.formErrorNetwork;
+      } finally {
+        submitButton.disabled = false;
+        formMessage.classList.remove('hidden');
+      }
+    });
+  }
 </script>

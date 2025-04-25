@@ -1,0 +1,50 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { ResourceItem as ResourceItemType } from '@/utils/types';
+import { getI18n } from '@/utils/config';
+
+interface Props {
+  item: ResourceItemType;
+}
+
+const { item } = Astro.props;
+const i18n = getI18n(Astro.currentLocale);
+---
+
+<div class='flex items-start gap-2'>
+  <Icon
+    name='fluent-emoji-flat:right-arrow'
+    class='w-3 h-3 mt-1 flex-shrink-0 text-brand-success'
+  />
+  <div>
+    <p class='text-brand-text-primary'>
+      {
+        item.url ? (
+          <a
+            title={i18n.resourceItem.linkTitle}
+            href={item.url}
+            class='font-semibold text-brand-warning hover:underline'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            {item.name}
+          </a>
+        ) : (
+          <span class='font-semibold text-brand-warning'>{item.name}</span>
+        )
+      }
+      {
+        item.description && (
+          <span class='text-brand-text-secondary'> : {item.description}</span>
+        )
+      }
+    </p>
+    {
+      item.why && (
+        <p class='text-xs text-brand-text-muted mt-0.5'>
+          ↳ {i18n.resourceItem.why}: {item.why}
+        </p>
+      )
+    }
+  </div>
+</div>

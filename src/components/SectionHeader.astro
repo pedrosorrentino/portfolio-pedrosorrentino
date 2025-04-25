@@ -1,0 +1,18 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  basePath: string;
+  sectionPath: string;
+  iconName: string;
+  title?: string;
+}
+
+const { basePath, sectionPath, iconName, title } = Astro.props;
+---
+
+{title && <h2 class='hidden'>{title}</h2>}
+<p class='text-brand-accent-secondary flex items-center gap-1.5'>
+  {basePath}/{sectionPath}
+  <Icon name={iconName} class='w-4 h-4' />
+</p>

@@ -3,21 +3,23 @@ import TerminalHeader from '@/components/TerminalHeader.astro';
 import ContactForm from '@/components/ContactForm.astro';
 import TerminalMenu from '@/components/TerminalMenu.astro';
 import Layout from '@/layouts/Layout.astro';
+import { getI18n } from '@/utils/config';
+
+const i18n = getI18n(Astro.currentLocale);
 ---
 
 <Layout>
   <div
-    class='bg-slate-700 dark:bg-black text-white dark:text-gray-100 p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-lg'
+    class='bg-brand-surface text-brand-text-primary p-4 sm:p-6 rounded-lg w-full max-w-4xl mx-auto font-mono mt-10 shadow-md'
   >
-    <h1 class='hidden'>Contacta a Pedro Sorrentino</h1>
+    <h1 class='hidden'>{i18n.pageTitles.contactHidden}</h1>
 
-    <TerminalHeader title='Contáctame' />
+    <TerminalHeader title={i18n.pageTitles.contact} />
 
     <div class='mt-4 space-y-8'>
-      <p class='text-green-400 dark:text-rose-400'>$ cat contactar.txt</p>
-      <p class='text-slate-300 dark:text-gray-300'>
-        Completa el formulario a continuación para enviarme un mensaje. ¡Te
-        responderé tan pronto como sea posible!
+      <p class='text-brand-accent-secondary'>{i18n.catCommands.contact}</p>
+      <p class='text-brand-text-secondary'>
+        {i18n.contactPage.intro}
       </p>
       <ContactForm />
       <TerminalMenu />

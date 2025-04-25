@@ -1,5 +1,4 @@
 ---
-// src/components/TerminalMenu.astro
 import { getI18n } from '@/utils/config';
 import DownloadResume from './DownloadResume.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
@@ -8,36 +7,42 @@ const i18n = getI18n(Astro.currentLocale);
 const currentLocale = Astro.currentLocale || 'en';
 ---
 
-<div class='flex flex-col sm:flex-row sm:items-end justify-between py-5'>
+<div
+  class='flex flex-col sm:flex-row sm:items-end justify-between py-5 font-mono'
+>
   <div>
-    <p class='text-green-400 dark:text-rose-400'>$</p>
-    <p class='text-green-400 dark:text-rose-400'>
-      $ <span class='text-blue-400 dark:text-lime-300'>{i18n.meta.text1}:</span>
+    <p class='text-brand-accent-secondary'>$</p>
+    <p class='text-brand-accent-secondary mb-1'>
+      $ <span class='text-brand-accent-primary'>{i18n.meta.text1}:</span>
     </p>
 
     {
       i18n.menu.map((menuItem) => (
-        <p class='text-slate-300 dark:text-gray-100 ml-4'>
+        <p class='text-brand-text-primary ml-4 mb-0.5'>
           <a
             title={menuItem.description}
             href={getRelativeLocaleUrl(currentLocale, menuItem.url)}
-            class='text-blue-400 dark:text-lime-300 hover:underline'
+            class='text-brand-accent-primary hover:underline focus:outline-none focus:ring-1 focus:ring-brand-accent-primary-state rounded px-0.5'
           >
             {menuItem.title}
           </a>
-          - {menuItem.description}
+          <span class='text-brand-text-muted'> - {menuItem.description}</span>
         </p>
       ))
     }
-    <p class='text-slate-300 dark:text-gray-100 ml-4'>
+    <p class='text-brand-text-primary ml-4'>
       <a
-        title='GitHub'
+        title={i18n.terminalMenu.githubTitle}
         href='https://github.com/pedrosorrentino'
-        class='text-blue-400 dark:text-lime-300 hover:underline'
+        class='text-brand-accent-primary hover:underline focus:outline-none focus:ring-1 focus:ring-brand-accent-primary-state rounded px-0.5'
+        target='_blank'
+        rel='noopener noreferrer'
       >
         ~/gitHub
       </a>
-      - {i18n.meta.text2}
+      <span class='text-brand-text-muted'>
+        - {i18n.terminalMenu.githubDesc}</span
+      >
     </p>
   </div>
   <DownloadResume />
