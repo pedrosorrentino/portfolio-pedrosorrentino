@@ -1,12 +1,15 @@
 ---
-import { getI18n } from '@/utils/config';
+import { getI18n } from "@/utils/config";
 const i18n = getI18n(Astro.currentLocale);
-const formspreeEndpoint = 'https://formspree.io/f/mnnjeekb';
+const formspreeEndpoint = "https://formspree.io/f/mnnjeekb";
 
 const fieldClasses =
-  'mt-1 block w-full px-3 py-2 bg-brand-surface border border-brand-border rounded-md shadow-sm focus:outline-none focus:ring-brand-accent-primary focus:border-brand-accent-primary text-brand-text-primary';
-const labelClasses = 'block text-sm font-medium text-brand-text-secondary';
-const errorClasses = 'text-brand-error text-xs mt-1 hidden';
+  "mt-1 block w-full px-3 py-2 bg-brand-surface border border-brand-border rounded-md shadow-sm focus:outline-none focus:ring-brand-accent-primary focus:border-brand-accent-primary text-brand-text-primary";
+const labelClasses = "block text-sm font-medium text-brand-text-secondary";
+const errorClasses = "text-brand-error text-xs mt-1 hidden";
+
+// Minimum time in milliseconds that must pass before form submission (3 seconds)
+const MIN_SUBMIT_TIME_MS = 3000;
 
 const clientTranslations = {
   formErrorName: i18n.meta.formErrorName,
@@ -17,74 +20,103 @@ const clientTranslations = {
   formSuccess: i18n.meta.formSuccess,
   formErrorServer: i18n.meta.formErrorServer,
   formErrorNetwork: i18n.meta.formErrorNetwork,
+  formErrorSpam:
+    i18n.meta.formErrorSpam || "Please wait a moment before submitting.",
+  formErrorBot: i18n.meta.formErrorBot || "Submission blocked.",
 };
 ---
 
-<form id='contact-form' class='space-y-4' novalidate>
-  <div>
-    <label for='name' class={labelClasses}>{i18n.meta.formName}:</label>
+<form id="contact-form" class="space-y-4" novalidate>
+  <!-- Honeypot field - invisible to users, bots will fill it -->
+  <div class="absolute -left-[9999px]" aria-hidden="true">
+    <label for="website">Website</label>
     <input
-      type='text'
-      id='name'
-      name='name'
+      type="text"
+      id="website"
+      name="website"
+      tabindex="-1"
+      autocomplete="off"
+    />
+  </div>
+
+  <!-- Hidden timestamp field for timing validation -->
+  <input type="hidden" id="form-timestamp" name="_gotcha" value="" />
+  <div>
+    <label for="name" class={labelClasses}>{i18n.meta.formName}:</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
       required
       class={fieldClasses}
-      aria-describedby='name-error'
+      aria-describedby="name-error"
     />
-    <p id='name-error' class={errorClasses}>
+    <p id="name-error" class={errorClasses}>
       {i18n.meta.formErrorName}
     </p>
   </div>
   <div>
-    <label for='email' class={labelClasses}>{i18n.meta.formEmail}:</label>
+    <label for="email" class={labelClasses}>{i18n.meta.formEmail}:</label>
     <input
-      type='email'
-      id='email'
-      name='email'
+      type="email"
+      id="email"
+      name="email"
       required
       class={fieldClasses}
-      aria-describedby='email-error'
+      aria-describedby="email-error"
     />
-    <p id='email-error' class={errorClasses}>
+    <p id="email-error" class={errorClasses}>
       {i18n.meta.formErrorEmail}
     </p>
   </div>
   <div>
-    <label for='message' class={labelClasses}>{i18n.meta.formMessage}:</label>
+    <label for="message" class={labelClasses}>{i18n.meta.formMessage}:</label>
     <textarea
-      id='message'
-      name='message'
+      id="message"
+      name="message"
       required
-      rows='4'
+      rows="4"
       class={fieldClasses}
-      aria-describedby='message-error'></textarea>
-    <p id='message-error' class={errorClasses}>
+      aria-describedby="message-error"></textarea>
+    <p id="message-error" class={errorClasses}>
       {i18n.meta.formErrorMessage}
     </p>
   </div>
   <div>
     <button
-      type='submit'
-      id='submit-button'
-      class='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-brand-interactive-fg bg-brand-interactive hover:bg-brand-interactive-state focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent-primary disabled:opacity-50 disabled:cursor-not-allowed'
+      type="submit"
+      id="submit-button"
+      class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-brand-interactive-fg bg-brand-interactive hover:bg-brand-interactive-state focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent-primary disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {i18n.meta.formSubmit}
     </button>
   </div>
 </form>
 
-<div id='form-message' class='hidden p-4 rounded-md mt-4 text-sm'></div>
+<div id="form-message" class="hidden p-4 rounded-md mt-4 text-sm"></div>
 
 <script
   is:inline
-  define:vars={{ formspreeEndpoint, translations: clientTranslations }}
+  define:vars={{
+    formspreeEndpoint,
+    translations: clientTranslations,
+    MIN_SUBMIT_TIME_MS,
+  }}
 >
-  const form = document.getElementById('contact-form');
-  const formMessage = document.getElementById('form-message');
-  const nameInput = document.getElementById('name');
-  const emailInput = document.getElementById('email');
-  const messageInput = document.getElementById('message');
-  const submitButton = document.getElementById('submit-button');
+  const form = document.getElementById("contact-form");
+  const formMessage = document.getElementById("form-message");
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("email");
+  const messageInput = document.getElementById("message");
+  const submitButton = document.getElementById("submit-button");
+  const honeypotInput = document.getElementById("website");
+  const timestampInput = document.getElementById("form-timestamp");
+
+  // Set timestamp when form loads
+  const formLoadTime = Date.now();
+  if (timestampInput) {
+    timestampInput.value = formLoadTime.toString();
+  }
 
   if (
     !form ||
@@ -99,20 +131,20 @@ const clientTranslations = {
     const fields = [
       {
         input: nameInput,
-        errorId: 'name-error',
+        errorId: "name-error",
         required: true,
         errorMsg: translations.formErrorName,
       },
       {
         input: emailInput,
-        errorId: 'email-error',
+        errorId: "email-error",
         required: true,
         isEmail: true,
         errorMsg: translations.formErrorEmail,
       },
       {
         input: messageInput,
-        errorId: 'message-error',
+        errorId: "message-error",
         required: true,
         errorMsg: translations.formErrorMessage,
       },
@@ -132,31 +164,61 @@ const clientTranslations = {
         }
       }
       errorElement.textContent = field.errorMsg;
-      errorElement.classList.toggle('hidden', isValid);
-      field.input.setAttribute('aria-invalid', String(!isValid));
+      errorElement.classList.toggle("hidden", isValid);
+      field.input.setAttribute("aria-invalid", String(!isValid));
       return isValid;
     };
 
     const validateForm = () => fields.every((field) => validateField(field));
 
+    // Anti-spam validation
+    const validateAntiSpam = () => {
+      // Check honeypot - if filled, it's a bot
+      if (honeypotInput && honeypotInput.value) {
+        formMessage.textContent = translations.formErrorBot;
+        formMessage.className =
+          "p-4 rounded-md mt-4 text-sm bg-brand-error-bg text-brand-error-fg";
+        formMessage.classList.remove("hidden");
+        return false;
+      }
+
+      // Check minimum time - submissions too fast are likely bots
+      const timeSinceLoad = Date.now() - formLoadTime;
+      if (timeSinceLoad < MIN_SUBMIT_TIME_MS) {
+        formMessage.textContent = translations.formErrorSpam;
+        formMessage.className =
+          "p-4 rounded-md mt-4 text-sm bg-brand-warning-bg text-brand-warning-fg";
+        formMessage.classList.remove("hidden");
+        return false;
+      }
+
+      return true;
+    };
+
     fields.forEach((field) => {
       if (field.input) {
-        field.input.addEventListener('input', () => validateField(field));
-        field.input.addEventListener('blur', () => validateField(field));
+        field.input.addEventListener("input", () => validateField(field));
+        field.input.addEventListener("blur", () => validateField(field));
       }
     });
 
-    form.addEventListener('submit', async (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
+
+      // Anti-spam checks first
+      if (!validateAntiSpam()) {
+        return;
+      }
+
       const isFormValid = validateForm();
 
       if (!isFormValid) {
         formMessage.textContent = translations.formErrorSubmit;
         formMessage.className =
-          'p-4 rounded-md mt-4 text-sm bg-brand-warning-bg text-brand-warning-fg';
-        formMessage.classList.remove('hidden');
+          "p-4 rounded-md mt-4 text-sm bg-brand-warning-bg text-brand-warning-fg";
+        formMessage.classList.remove("hidden");
         const firstInvalidField = fields.find(
-          (f) => f.input && f.input.getAttribute('aria-invalid') === 'true'
+          (f) => f.input && f.input.getAttribute("aria-invalid") === "true"
         );
         if (firstInvalidField && firstInvalidField.input) {
           firstInvalidField.input.focus();
@@ -167,39 +229,47 @@ const clientTranslations = {
       submitButton.disabled = true;
       formMessage.textContent = translations.formSending;
       formMessage.className =
-        'p-4 rounded-md mt-4 text-sm bg-brand-info-bg text-brand-info-fg';
-      formMessage.classList.remove('hidden');
+        "p-4 rounded-md mt-4 text-sm bg-brand-info-bg text-brand-info-fg";
+      formMessage.classList.remove("hidden");
 
       const formData = new FormData(form);
 
+      // Remove honeypot and timestamp fields from submission
+      formData.delete("website");
+      formData.delete("_gotcha");
+
       try {
         const response = await fetch(formspreeEndpoint, {
-          method: 'POST',
+          method: "POST",
           body: formData,
-          headers: { Accept: 'application/json' },
+          headers: { Accept: "application/json" },
         });
         if (response.ok) {
           form.reset();
+          // Reset timestamp after successful submission
+          if (timestampInput) {
+            timestampInput.value = Date.now().toString();
+          }
           fields.forEach((field) => {
             const errorElement = document.getElementById(field.errorId);
-            if (errorElement) errorElement.classList.add('hidden');
-            if (field.input) field.input.removeAttribute('aria-invalid');
+            if (errorElement) errorElement.classList.add("hidden");
+            if (field.input) field.input.removeAttribute("aria-invalid");
           });
           formMessage.className =
-            'p-4 rounded-md mt-4 text-sm bg-brand-success-bg text-brand-success-fg';
+            "p-4 rounded-md mt-4 text-sm bg-brand-success-bg text-brand-success-fg";
           formMessage.textContent = translations.formSuccess;
         } else {
           formMessage.className =
-            'p-4 rounded-md mt-4 text-sm bg-brand-error-bg text-brand-error-fg';
+            "p-4 rounded-md mt-4 text-sm bg-brand-error-bg text-brand-error-fg";
           formMessage.textContent = translations.formErrorServer;
         }
       } catch (error) {
         formMessage.className =
-          'p-4 rounded-md mt-4 text-sm bg-brand-error-bg text-brand-error-fg';
+          "p-4 rounded-md mt-4 text-sm bg-brand-error-bg text-brand-error-fg";
         formMessage.textContent = translations.formErrorNetwork;
       } finally {
         submitButton.disabled = false;
-        formMessage.classList.remove('hidden');
+        formMessage.classList.remove("hidden");
       }
     });
   }

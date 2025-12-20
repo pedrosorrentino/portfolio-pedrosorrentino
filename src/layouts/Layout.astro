@@ -1,60 +1,81 @@
 ---
-import { ClientRouter } from 'astro:transitions';
-import '../styles/global.css';
-import TotalTime from '@/components/TotalTime';
-import { getI18n } from '@/utils/config';
-import LanguagePicker from '@/components/LanguagePicker.astro';
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
+import TotalTime from "@/components/TotalTime";
+import { getI18n } from "@/utils/config";
+import LanguagePicker from "@/components/LanguagePicker.astro";
 
 const canonicalUrl = Astro.url.href;
 const i18n = getI18n(Astro.currentLocale);
 ---
 
 <!doctype html>
-<html lang={Astro.currentLocale || 'en'}>
+<html lang={Astro.currentLocale || "en"}>
   <head>
-    <meta charset='UTF-8' />
+    <meta charset="UTF-8" />
     <meta
-      name='viewport'
-      content='width=device-width, initial-scale=1.0, viewport-fit=cover'
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
 
     <title>{i18n.meta.title}</title>
-    <meta name='description' content={i18n.meta.description} />
-    <meta name='author' content='Pedro Sorrentino' />
-    <meta name='publisher' content='Pedro Sorrentino' />
-    <meta name='generator' content={Astro.generator} />
-    <link rel='canonical' href={canonicalUrl} />
-    <meta name='robots' content='index, follow' />
+    <meta name="description" content={i18n.meta.description} />
+    <meta name="author" content="Pedro Sorrentino" />
+    <meta name="publisher" content="Pedro Sorrentino" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="theme-color"
+      content="#4f46e5"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#818cf8"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="alternate" hreflang="en" href="https://pedrosorrentino.com/" />
+    <link
+      rel="alternate"
+      hreflang="es"
+      href="https://pedrosorrentino.com/es/"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://pedrosorrentino.com/"
+    />
 
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <meta name='apple-mobile-web-app-capable' content='yes' />
-    <meta name='mobile-web-app-capable' content='yes' />
-    <meta name='apple-mobile-web-app-status-bar-style' content='default' />
-    <meta http-equiv='X-Content-Type-Options' content='nosniff' />
-    <meta property='og:type' content='website' />
-    <meta property='og:url' content={canonicalUrl} />
-    <meta property='og:title' content={i18n.meta.title} />
-    <meta property='og:description' content={i18n.meta.description} />
-    <meta property='og:image' content='/ogImage.webp' />
-    <meta name='twitter:card' content='summary_large_image' />
-    <meta name='twitter:url' content={canonicalUrl} />
-    <meta name='twitter:title' content={i18n.meta.title} />
-    <meta name='twitter:description' content={i18n.meta.description} />
-    <meta name='twitter:image' content='/ogImage.webp' />
-    <meta name='color-scheme' content='dark light' />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={i18n.meta.title} />
+    <meta property="og:description" content={i18n.meta.description} />
+    <meta property="og:image" content="/ogImage.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={i18n.meta.title} />
+    <meta name="twitter:description" content={i18n.meta.description} />
+    <meta name="twitter:image" content="/ogImage.webp" />
+    <meta name="color-scheme" content="dark light" />
     <ClientRouter />
   </head>
-  <body class='bg-brand-background text-brand-text-primary'>
-    <main class='max-w-4xl sm:mx-auto mx-5'>
+  <body class="bg-brand-background text-brand-text-primary">
+    <main class="max-w-4xl sm:mx-auto mx-5">
       <slot />
     </main>
 
     <footer
-      class='flex flex-col sm:flex-row items-center justify-between max-w-4xl sm:mx-auto mx-5 py-8 mt-2 gap-4 sm:gap-0'
+      class="flex flex-col sm:flex-row items-center justify-between max-w-4xl sm:mx-auto mx-5 py-8 mt-2 gap-4 sm:gap-0"
     >
       <LanguagePicker />
-      <TotalTime client:only='preact' />
+      <TotalTime client:only="preact" />
     </footer>
   </body>
 </html>

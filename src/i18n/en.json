@@ -17,7 +17,9 @@
     "formErrorSubmit": "Please correct the errors above.",
     "formSending": "Sending...",
     "formErrorServer": "Oops! Something went wrong submitting the form. Please try again later.",
-    "formErrorNetwork": "Oops! Network error. Please check your connection and try again."
+    "formErrorNetwork": "Oops! Network error. Please check your connection and try again.",
+    "formErrorSpam": "Please wait a moment before submitting.",
+    "formErrorBot": "Submission blocked."
   },
   "menu": [
     { "title": "~/about", "url": "/", "description": "About me" },

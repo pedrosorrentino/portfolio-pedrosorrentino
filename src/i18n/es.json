@@ -17,7 +17,9 @@
     "formErrorSubmit": "Por favor, corrige los errores indicados.",
     "formSending": "Enviando...",
     "formErrorServer": "¡Ups! Algo salió mal al enviar el formulario. Por favor, inténtalo de nuevo más tarde.",
-    "formErrorNetwork": "¡Ups! Error de red. Por favor, revisa tu conexión e inténtalo de nuevo."
+    "formErrorNetwork": "¡Ups! Error de red. Por favor, revisa tu conexión e inténtalo de nuevo.",
+    "formErrorSpam": "Por favor, espera un momento antes de enviar.",
+    "formErrorBot": "Envío bloqueado."
   },
   "menu": [
     { "title": "~/acerca-de", "url": "/", "description": "Acerca de mí" },
